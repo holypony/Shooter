@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
     
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float turnSpeed = 0.45f;
+
+
+    [SerializeField] private ParticleSystem PsShooting;
+    
     private float _turnSmoothVelocity;
     private void Awake()
     {
@@ -27,7 +31,7 @@ public class Player : MonoBehaviour
         }
         
         var direction = new Vector3(actionController.Move.x, 0, actionController.Move.y);
-        _animator.SetFloat("Move", direction.magnitude);
+       _animator.SetFloat("Move", direction.magnitude);
         
         if(direction.magnitude >= 0.01f)
         {

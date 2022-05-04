@@ -1,7 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="60804833-0a2b-4865-96b9-871a2f40b8dd" name="Changes" comment="" />
+    <list default="true" id="60804833-0a2b-4865-96b9-871a2f40b8dd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Shooter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Misc/PolygonMilitary_Mat_Clouds.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Misc/PolygonMilitary_Mat_Clouds.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Misc/PolygonMilitary_Mat_Glass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Misc/PolygonMilitary_Mat_Glass.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_02_B.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_02_B.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_02_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_02_C.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_03_B.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_03_B.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_03_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_03_C.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_04_B.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_04_B.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_04_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/PolygonMilitary_Mat_04_C.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Air_Large_01.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Air_Large_01.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Air_Large_02.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Air_Large_02.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Air_Vehicles_01.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Air_Vehicles_01.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Air_Vehicles_02.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Air_Vehicles_02.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Helicopters_01_A.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Materials/Vehicles/PolygonMilitary_Mat_Helicopters_01_A.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Models/Characters.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Models/Characters.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Prefabs/Characters/SM_Chr_Bombsuit_Male_01.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Prefabs/Characters/SM_Chr_Bombsuit_Male_01.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Prefabs/Characters/SM_Chr_Contractor_Male_02.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Prefabs/Characters/SM_Chr_Contractor_Male_02.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Prefabs/Characters/SM_Chr_Soldier_Male_02.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Prefabs/Characters/SM_Chr_Soldier_Male_02.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/Materials/pCube1Mat.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/Materials/pCube1Mat.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Blood.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Blood.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Dark.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Dark.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Emission.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Emission.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Emissive_Fire.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Emissive_Fire.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Flies.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Flies.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Ice_01.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Ice_01.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Ice_02.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Ice_02.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Rock_01.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Rock_01.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Rock_02.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Rock_02.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Smoke_Mat_03.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Smoke_Mat_03.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Texture.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticleFX_Texture.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticles_Material_01_A.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticles_Material_01_A.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticles_Material_01_B.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticles_Material_01_B.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticles_Material_01_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Materials/PolygonParticles_Material_01_C.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/FX_Shard_Rock_Small_01.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/FX_Shard_Rock_Small_01.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/FX_Sphere.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/FX_Sphere.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/FX_Sphere_03.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/FX_Sphere_03.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/Materials/PolygonApocalypse_Texture_01_Cleaned.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/Materials/PolygonApocalypse_Texture_01_Cleaned.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/SM_Flame_FX.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/SM_Flame_FX.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/SM_Particle_Smoke_01.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Models/SM_Particle_Smoke_01.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonParticles/Textures/PolygonParticles_Circle_01.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonParticles/Textures/PolygonParticles_Circle_01.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +71,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="28ejOI5cLCnKP6ackNhTHKT1q2R" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -71,15 +125,28 @@
       <option name="presentableId" value="Default" />
       <updated>1651583913910</updated>
       <workItem from="1651583928228" duration="2995000" />
-      <workItem from="1651597560422" duration="3494000" />
+      <workItem from="1651597560422" duration="3601000" />
+      <workItem from="1651663907118" duration="2598000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
