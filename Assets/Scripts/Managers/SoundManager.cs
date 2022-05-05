@@ -5,24 +5,61 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 
+    public static SoundManager instance;
+    [SerializeField] private ActionController actionController;
     [SerializeField] private AudioSource AsWeapon;
 
     [SerializeField] private AudioClip rifleShot;
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            return;
+        }
+        Destroy(this.gameObject);
+    }
+    
+    private void PlayRifleShot(bool isFire)
+    {
+        if (isFire)
+        {
+            if (!isShooting)
+            {
+                StartCoroutine(SoundShooting());  
+            }
+            
+        }
+        else
+        {
+            isShooting = false;
+        }
+            
+
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private bool isShooting = false;
+    IEnumerator SoundShooting()
     {
+        isShooting = true;
+        while (isShooting)
+        {
+            AsWeapon.clip = rifleShot; 
+            AsWeapon.Play();
+            yield return new WaitForSeconds(0.1f); 
+        }
         
     }
-
-    private void PlayRifleShot()
+    
+    private void OnEnable()
     {
-        AsWeapon.clip = rifleShot; 
-        AsWeapon.Play();
+        actionController.OnFireBoolChange += PlayRifleShot;
+    }
+    
+    private void OnDisable()
+    {
+        actionController.OnFireBoolChange -= PlayRifleShot;
     }
 }

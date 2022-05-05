@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemySoldier : Bot
@@ -7,6 +8,10 @@ public class EnemySoldier : Bot
     private CapsuleCollider _collider;
     private Rigidbody[] _rbs;
     private Collider[] _colliders;
+    
+    [SerializeField] private ParticleSystem PsBlood;
+    [SerializeField] private ParticleSystem PsBlood2;
+    [SerializeField] private ParticleSystem PsBlood3;
 
     public bool test = false;
     private void Awake()
@@ -18,6 +23,14 @@ public class EnemySoldier : Bot
         _collider = GetComponent<CapsuleCollider>();
         _colliders = GetComponentsInChildren<Collider>();
 
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            Death();
+        }
     }
 
     private void Update()
@@ -50,6 +63,9 @@ public class EnemySoldier : Bot
     private void Death()
     {
 
+        PsBlood.Play(true);
+        //PsBlood2.Play();
+        //PsBlood3.Play();
         _animator.enabled = false;
         ColliderControl(false);
         RigidBodyControl(false);

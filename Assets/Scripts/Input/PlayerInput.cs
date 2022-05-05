@@ -35,6 +35,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""FireButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""f18bd0ff-7d96-45da-b310-e68ed5d38810"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -48,6 +57,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""MoveStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2539f675-0199-4431-b5c9-5929686fef52"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +77,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // PlayerMap
         m_PlayerMap = asset.FindActionMap("PlayerMap", throwIfNotFound: true);
         m_PlayerMap_MoveStick = m_PlayerMap.FindAction("MoveStick", throwIfNotFound: true);
+        m_PlayerMap_FireButton = m_PlayerMap.FindAction("FireButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -117,11 +138,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerMap;
     private IPlayerMapActions m_PlayerMapActionsCallbackInterface;
     private readonly InputAction m_PlayerMap_MoveStick;
+    private readonly InputAction m_PlayerMap_FireButton;
     public struct PlayerMapActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveStick => m_Wrapper.m_PlayerMap_MoveStick;
+        public InputAction @FireButton => m_Wrapper.m_PlayerMap_FireButton;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -134,6 +157,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveStick.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMoveStick;
                 @MoveStick.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMoveStick;
                 @MoveStick.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMoveStick;
+                @FireButton.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFireButton;
+                @FireButton.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFireButton;
+                @FireButton.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFireButton;
             }
             m_Wrapper.m_PlayerMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -141,6 +167,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveStick.started += instance.OnMoveStick;
                 @MoveStick.performed += instance.OnMoveStick;
                 @MoveStick.canceled += instance.OnMoveStick;
+                @FireButton.started += instance.OnFireButton;
+                @FireButton.performed += instance.OnFireButton;
+                @FireButton.canceled += instance.OnFireButton;
             }
         }
     }
@@ -148,5 +177,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IPlayerMapActions
     {
         void OnMoveStick(InputAction.CallbackContext context);
+        void OnFireButton(InputAction.CallbackContext context);
     }
 }

@@ -4,14 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(-1)]
 public class ActionController : MonoBehaviour
 {
     private PlayerInput playerInput;
     public Vector2 Move { get; private set; }
     public Vector2 cameraLook { get; private set; }
+    
     public bool RocketFireBool { get; private set; }
-
-    public bool FireBool { get; private set; }
+    
+    private bool _fireBool = false;
+    public event Action<bool> OnFireBoolChange;
+    public bool FireBool
+    {
+        get => _fireBool;
+        private set
+        {
+            _fireBool = value;
+            OnFireBoolChange?.Invoke(_fireBool);
+        }
+    }
+   
     
     private void Awake()
     {
@@ -30,16 +43,26 @@ public class ActionController : MonoBehaviour
     
     private void Start()
     {
-        //playerInput.PlayerMap.FireBtn.started += ctx => pressFireBtn(ctx);
-        //playerInput.PlayerMap.FireBtn.canceled += ctx => unpressFireBtn(ctx);
+        playerInput.PlayerMap.FireButton.started += ctx => pressFireBtn(ctx);
+        playerInput.PlayerMap.FireButton.canceled += ctx => unpressFireBtn(ctx);
 
         //playerInput.PlayerMap.RocketBtn.started += ctx => pressLandFireBtn(ctx);
         //playerInput.PlayerMap.RocketBtn.canceled += ctx => unpressLandFireBtn(ctx);
     }
+
+    private void pressFireBtn(InputAction.CallbackContext ctx)
+    {
+        FireBool = true;
+    }
     
+    private void unpressFireBtn(InputAction.CallbackContext ctx)
+    {
+        FireBool = false;
+    }
+
     
-    
-    
+
+
     private void OnEnable()
     {
         playerInput.Enable();
