@@ -67,12 +67,14 @@ public class EnemySoldier : Bot
         _agent.SetDestination(target.transform.position);
     }
 
+    private float dist;
     private bool isShooting = false;
+ 
     private void FixedUpdate()
     {
         if (IsAlive)
         {
-            float dist = Vector3.Distance(transform.position, player.transform.position);
+            dist = Vector3.Distance(transform.position, player.transform.position);
             if (dist < 5 && IsAlive)
             {
                 transform.LookAt(player.transform);
@@ -123,6 +125,14 @@ public class EnemySoldier : Bot
         PsBlood.Play(true);
         ColliderControl(false);
         RigidBodyControl(false);
+
+        //StartCoroutine(BackToPool());
+        IEnumerator BackToPool()
+        {
+            yield return new WaitForSeconds(7f);
+            gameObject.SetActive(false);
+
+        }
     }
 
     private void ColliderControl(bool state)
@@ -136,16 +146,31 @@ public class EnemySoldier : Bot
     
     private void RigidBodyControl(bool state)
     {
-        var dir = transform.position - BulletPos;
-
- 
-        // force = 1 / dist 
-        foreach (var body in _rbs)
+        if (state == false && dist > 0)
         {
-            body.isKinematic = state;
+            var dir = transform.position - BulletPos;
+            var distIndex = 750f * (1f / dist);
             
-                body.AddForce(dir * 750f);
+            foreach (var body in _rbs)
+            {
+                body.isKinematic = false;
+                body.AddForce(dir * distIndex);
+            }
+            _rb.isKinematic = true;
         }
-        _rb.isKinematic = !state;
+        else
+        {
+            foreach (var body in _rbs)
+            {
+                body.isKinematic = true;
+            }
+            _rb.isKinematic = false;
+        }
+        
+        
+       
+        
+        // force = 1 / dist 
+        
     }
 }

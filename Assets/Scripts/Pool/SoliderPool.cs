@@ -6,21 +6,33 @@ public class SoliderPool : PoolBase<Bot>
 {
     private List<Bot> SoldierPool;
     [SerializeField] private Bot EnemySoldierPref;
-    private int _soldiersQuantity = 5;
+    private int _soldiersQuantity = 15;
     [SerializeField] private float timeBetweenSpawn = 1f;
     [SerializeField] private GameObject SoldierSpawnPoint;
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject Target;
     
-    void Start()
+    
+    [SerializeField] private GameSetupSo gameSetupSo;
+
+    private Vector3 startPlayerPos;
+    void Awake()
     {
+        gameSetupSo.IsPlay = false;
+    }
+
+    public void StartGame()
+    {
+        
+        startPlayerPos = Player.transform.position;
         SoldierPool = InitPool(EnemySoldierPref, _soldiersQuantity);
         Spawn();
-
     }
 
     public void Spawn()
     {
+
+        Player.transform.position = startPlayerPos;
         StartCoroutine(SpawnSoldier());
         IEnumerator SpawnSoldier()
         {

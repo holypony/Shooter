@@ -166,8 +166,8 @@ Library: lib_burst_generated64
 --root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/Cinemachine.dll
 --root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/Unity.Timeline.dll
 --root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/Unity.Mathematics.dll
---root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/Unity.Recorder.dll
 --root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/Assembly-CSharp.dll
+--root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/Unity.Recorder.dll
 --root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/VirtualButtonsScripts.dll
 --root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
 --root-assembly=/Users/quattroppio/Github/Shooter/Temp/StagingArea/Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll

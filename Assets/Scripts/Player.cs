@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
             var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, turnSpeed);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             
-            if (direction.magnitude >= 0.25f)
+            if (direction.magnitude >= 0.4f)
             {
                 _characterController.Move(direction * (moveSpeed * Time.deltaTime));
             }
