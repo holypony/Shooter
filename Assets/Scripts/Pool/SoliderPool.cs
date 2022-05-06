@@ -15,7 +15,12 @@ public class SoliderPool : PoolBase<Bot>
     void Start()
     {
         SoldierPool = InitPool(EnemySoldierPref, _soldiersQuantity);
+        Spawn();
 
+    }
+
+    public void Spawn()
+    {
         StartCoroutine(SpawnSoldier());
         IEnumerator SpawnSoldier()
         {
@@ -33,7 +38,6 @@ public class SoliderPool : PoolBase<Bot>
             }
             
         }
-        
     }
 
     

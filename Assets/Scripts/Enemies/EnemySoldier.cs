@@ -13,6 +13,7 @@ public class EnemySoldier : Bot
     private Collider[] _colliders;
     
     [Header("Shooting Setup")]
+ 
     [SerializeField] private ParticleSystem PsShooting;
     [SerializeField] private ParticleSystem PsShooting2;
     [SerializeField] private ParticleSystem PsShooting3;
@@ -20,7 +21,7 @@ public class EnemySoldier : Bot
     [SerializeField] private ParticleSystem PsBlood;
     
     private Vector3 BulletPos;
-
+    [SerializeField] private GameObject root;
     
     public bool test = false;
     private NavMeshAgent _agent;
@@ -57,7 +58,7 @@ public class EnemySoldier : Bot
     public override void Init()
     {
         base.Init();
-        IsAlive = true;
+
         _animator.enabled = true;
 
         ColliderControl(true);
@@ -66,21 +67,33 @@ public class EnemySoldier : Bot
         _agent.SetDestination(target.transform.position);
     }
 
+    private bool isShooting = false;
     private void FixedUpdate()
     {
-        float dist = Vector3.Distance(transform.position, player.transform.position);
-        if (dist < 5 && IsAlive)
+        if (IsAlive)
         {
-            _agent.isStopped = true;
-            transform.LookAt(player.transform);
-            Shoot(true);
-        }
-        else
-        {
-            Shoot(false);
-        }
+            float dist = Vector3.Distance(transform.position, player.transform.position);
+            if (dist < 5 && IsAlive)
+            {
+                transform.LookAt(player.transform);
+                if (!isShooting)
+                {
+                    isShooting = true;
+                    _agent.isStopped = true;
+                    Shoot(true); 
+                }
+            
+            }
+            else
+            {
+                isShooting = false;
+                _agent.isStopped = false;
+                Shoot(false);
+            }
 
-        _animator.SetFloat("Move", _agent.remainingDistance > 0 ? 1f : 0f);
+            _animator.SetFloat("Move", _agent.remainingDistance > 0.3f ? 1f : 0f);
+        }
+        
     }
 
     private void Shoot(bool isFire)
@@ -99,6 +112,7 @@ public class EnemySoldier : Bot
 
     private void Death()
     {
+        Shoot(false);
         
         IsAlive = false;
         
