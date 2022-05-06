@@ -44,7 +44,7 @@ public abstract class PoolBase<T> : MonoBehaviour where T : MonoBehaviour
     }
 
 
-    private T CreateNew(ICollection<T> pool, bool isActive = false, float x = 0, float y = 0, float z = 0)
+    private T CreateNew(ICollection<T> pool, bool isActive = false, float x = 0, float y = 1, float z = 0)
     {
         var item = Instantiate(_prefab);
 

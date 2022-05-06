@@ -29,18 +29,15 @@ public class SoundManager : MonoBehaviour
             {
                 StartCoroutine(SoundShooting());  
             }
-            
         }
         else
         {
             isShooting = false;
         }
-            
-
-        
     }
 
     private bool isShooting = false;
+    
     IEnumerator SoundShooting()
     {
         isShooting = true;
@@ -50,7 +47,6 @@ public class SoundManager : MonoBehaviour
             AsWeapon.Play();
             yield return new WaitForSeconds(0.1f); 
         }
-        
     }
     
     private void OnEnable()
