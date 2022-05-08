@@ -2561,8 +2561,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySoldierPref: {fileID: 8220691436089305120, guid: cc9a29685e3444939b7d5a240e5ada09,
     type: 3}
-  _soldiersPoolCapacity: 4
-  _soldiersToSpawn: 25
+  _soldiersPoolCapacity: 3
+  _soldiersToSpawn: 75
   timeBetweenSpawn: 1
   SoldierSpawnPoint: {fileID: 1652034054}
   Player: {fileID: 1009849197917100350}
@@ -3482,9 +3482,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 12.2, z: 0}
-  m_XDamping: 0
+  m_XDamping: 2
   m_YDamping: 0
-  m_ZDamping: 0
+  m_ZDamping: 1
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
@@ -4962,14 +4962,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652034054}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -13.19, y: 1.16, z: 7.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 842188793}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &1711195806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5915,6 +5915,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3692682827795029802, guid: da38bfad97315484eb2fc661f9ae642b,
+        type: 3}
+      propertyPath: turnSpeed
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3692682827795029802, guid: da38bfad97315484eb2fc661f9ae642b,
         type: 3}

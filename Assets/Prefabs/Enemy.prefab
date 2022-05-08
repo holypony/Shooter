@@ -628,7 +628,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 500
   m_StoppingDistance: 15
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -657,8 +657,9 @@ MonoBehaviour:
   PsShooting2: {fileID: 6904823781543976325}
   PsShooting3: {fileID: 6904807682539871745}
   PsBlood: {fileID: 8371657139610096663}
-  root: {fileID: 7204319105430491770}
+  listpos: {fileID: 11400000, guid: 7c74ec24da9f04047b78833052d4c16b, type: 2}
   test: 0
+  pos: []
 --- !u!1 &7203859129645012916
 GameObject:
   m_ObjectHideFlags: 0
