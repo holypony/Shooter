@@ -44,6 +44,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimStick"",
+                    ""type"": ""Value"",
+                    ""id"": ""5d9b95ff-e3e2-43e3-9460-ddfb4b61dda8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -79,6 +88,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""FireButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""409e3a69-0e5f-4e5e-99f5-d88ff753288e"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AimStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -89,6 +109,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_PlayerMap = asset.FindActionMap("PlayerMap", throwIfNotFound: true);
         m_PlayerMap_MoveStick = m_PlayerMap.FindAction("MoveStick", throwIfNotFound: true);
         m_PlayerMap_FireButton = m_PlayerMap.FindAction("FireButton", throwIfNotFound: true);
+        m_PlayerMap_AimStick = m_PlayerMap.FindAction("AimStick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -150,12 +171,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IPlayerMapActions m_PlayerMapActionsCallbackInterface;
     private readonly InputAction m_PlayerMap_MoveStick;
     private readonly InputAction m_PlayerMap_FireButton;
+    private readonly InputAction m_PlayerMap_AimStick;
     public struct PlayerMapActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveStick => m_Wrapper.m_PlayerMap_MoveStick;
         public InputAction @FireButton => m_Wrapper.m_PlayerMap_FireButton;
+        public InputAction @AimStick => m_Wrapper.m_PlayerMap_AimStick;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -171,6 +194,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @FireButton.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFireButton;
                 @FireButton.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFireButton;
                 @FireButton.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFireButton;
+                @AimStick.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnAimStick;
+                @AimStick.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnAimStick;
+                @AimStick.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnAimStick;
             }
             m_Wrapper.m_PlayerMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -181,6 +207,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @FireButton.started += instance.OnFireButton;
                 @FireButton.performed += instance.OnFireButton;
                 @FireButton.canceled += instance.OnFireButton;
+                @AimStick.started += instance.OnAimStick;
+                @AimStick.performed += instance.OnAimStick;
+                @AimStick.canceled += instance.OnAimStick;
             }
         }
     }
@@ -189,5 +218,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMoveStick(InputAction.CallbackContext context);
         void OnFireButton(InputAction.CallbackContext context);
+        void OnAimStick(InputAction.CallbackContext context);
     }
 }

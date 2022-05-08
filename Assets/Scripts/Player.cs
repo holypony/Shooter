@@ -30,13 +30,13 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-
+        Aim();
     }
-
     private void Shoot(bool isFire)
     {
         if (isFire)
         {
+
             PsShooting.Play();
             PsShooting2.Play();
             PsShooting3.Play();
@@ -57,16 +57,34 @@ public class Player : MonoBehaviour
         
         _animator.SetFloat("Move", direction.magnitude);
         
+        if (direction.magnitude >= 0.4f)
+        {
+            _characterController.Move(direction * (moveSpeed * Time.deltaTime));
+        }
+    }
+
+    private void Aim()
+    {
+        var direction = new Vector3(actionController.Aim.x, 0, actionController.Aim.y);
         if(direction.magnitude >= 0.01f)
         {
             var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, turnSpeed);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            
-            if (direction.magnitude >= 0.4f)
+
+            if (actionController.IsAiming)
             {
-                _characterController.Move(direction * (moveSpeed * Time.deltaTime));
+                if (direction.magnitude >= 0.4f)
+                {
+                    Shoot((true));
+                    actionController.FireBool = true;
+                }
             }
+        }
+        else
+        {
+            Shoot((false));
+            actionController.FireBool = false;
         }
     }
 

@@ -5,40 +5,38 @@ using UnityEngine;
 public class SoliderPool : PoolBase<Bot>
 {
     private List<Bot> SoldierPool;
+    [Header("Soldier spawn setting")]
     [SerializeField] private Bot EnemySoldierPref;
-    private int _soldiersQuantity = 15;
+    [SerializeField] private int _soldiersPoolCapacity= 1;
+    [SerializeField] private int _soldiersToSpawn = 15;
     [SerializeField] private float timeBetweenSpawn = 1f;
+    [Header("Soldier setup")]
     [SerializeField] private GameObject SoldierSpawnPoint;
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject Target;
-    
-    
+    [Header("Other")]
     [SerializeField] private GameSetupSo gameSetupSo;
-
-    private Vector3 startPlayerPos;
     void Awake()
     {
         gameSetupSo.IsPlay = false;
+        SoldierPool = InitPool(EnemySoldierPref, _soldiersPoolCapacity);
     }
 
     public void StartGame()
     {
         
-        startPlayerPos = Player.transform.position;
-        SoldierPool = InitPool(EnemySoldierPref, _soldiersQuantity);
         Spawn();
     }
 
     public void Spawn()
     {
 
-        Player.transform.position = startPlayerPos;
         StartCoroutine(SpawnSoldier());
         IEnumerator SpawnSoldier()
         {
             yield return new WaitForSeconds(timeBetweenSpawn * 2f);
-            int i = 0;
-            while (i < 15)
+            var i = 0;
+            while (i < _soldiersToSpawn)
             {
                 i++;
                 var enemySoldier = Get(SoldierPool, SoldierSpawnPoint.transform.position, Quaternion.identity);
@@ -48,9 +46,6 @@ public class SoliderPool : PoolBase<Bot>
 
                 yield return new WaitForSeconds(timeBetweenSpawn);
             }
-            
         }
     }
-
-    
 }

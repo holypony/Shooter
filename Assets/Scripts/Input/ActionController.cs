@@ -9,16 +9,16 @@ public class ActionController : MonoBehaviour
 {
     private PlayerInput playerInput;
     public Vector2 Move { get; private set; }
-    public Vector2 cameraLook { get; private set; }
+    public Vector2 Aim { get; private set; }
     
-    public bool RocketFireBool { get; private set; }
+    public bool IsAiming { get; private set; }
     
     private bool _fireBool = false;
     public event Action<bool> OnFireBoolChange;
     public bool FireBool
     {
         get => _fireBool;
-        private set
+        set
         {
             _fireBool = value;
             OnFireBoolChange?.Invoke(_fireBool);
@@ -35,6 +35,7 @@ public class ActionController : MonoBehaviour
     {
         //Debug.Log(playerInput.Touch.Joystick.ReadValue<Vector2>());
         Move = playerInput.PlayerMap.MoveStick.ReadValue<Vector2>();
+        Aim = playerInput.PlayerMap.AimStick.ReadValue<Vector2>();
         //cameraLook = playerInput.PlayerMap.JoystickCameraMove.ReadValue<Vector2>();
         //transform.Rotate(-Y, 0f, 0f, Space.Self);
         //transform.Rotate(0f, X, 0f, Space.World);
@@ -43,19 +44,28 @@ public class ActionController : MonoBehaviour
     
     private void Start()
     {
-        playerInput.PlayerMap.FireButton.started += ctx => pressFireBtn(ctx);
-        playerInput.PlayerMap.FireButton.canceled += ctx => unpressFireBtn(ctx);
+        playerInput.PlayerMap.FireButton.started += PressFireBtn;
+        playerInput.PlayerMap.FireButton.canceled += UnpressFireBtn;
 
-        //playerInput.PlayerMap.RocketBtn.started += ctx => pressLandFireBtn(ctx);
-        //playerInput.PlayerMap.RocketBtn.canceled += ctx => unpressLandFireBtn(ctx);
+        playerInput.PlayerMap.AimStick.started += StartAiming;
+        playerInput.PlayerMap.AimStick.canceled += StopAiming;
+    }
+    
+    private void StartAiming(InputAction.CallbackContext ctx)
+    {
+        IsAiming = true;
+    }
+    private void StopAiming(InputAction.CallbackContext ctx)
+    {
+        IsAiming = false;
     }
 
-    private void pressFireBtn(InputAction.CallbackContext ctx)
+    private void PressFireBtn(InputAction.CallbackContext ctx)
     {
         FireBool = true;
     }
     
-    private void unpressFireBtn(InputAction.CallbackContext ctx)
+    private void UnpressFireBtn(InputAction.CallbackContext ctx)
     {
         FireBool = false;
     }

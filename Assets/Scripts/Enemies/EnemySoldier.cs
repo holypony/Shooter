@@ -59,11 +59,11 @@ public class EnemySoldier : Bot
     {
         base.Init();
 
-        _animator.enabled = true;
+        
 
         ColliderControl(true);
         RigidBodyControl(true);
-
+        _animator.enabled = true;
         _agent.SetDestination(target.transform.position);
     }
 
@@ -126,10 +126,10 @@ public class EnemySoldier : Bot
         ColliderControl(false);
         RigidBodyControl(false);
 
-        //StartCoroutine(BackToPool());
+        StartCoroutine(BackToPool());
         IEnumerator BackToPool()
         {
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(1f);
             gameObject.SetActive(false);
 
         }
@@ -146,15 +146,15 @@ public class EnemySoldier : Bot
     
     private void RigidBodyControl(bool state)
     {
-        if (state == false && dist > 0)
+        if (state == false)
         {
-            var dir = transform.position - BulletPos;
-            var distIndex = 750f * (1f / dist);
+            //var dir = transform.position - BulletPos;
+            //var distIndex = 750f * (1f / dist);
             
             foreach (var body in _rbs)
             {
                 body.isKinematic = false;
-                body.AddForce(dir * distIndex);
+                //body.AddForce(dir * distIndex);
             }
             _rb.isKinematic = true;
         }
@@ -162,8 +162,10 @@ public class EnemySoldier : Bot
         {
             foreach (var body in _rbs)
             {
+
                 body.isKinematic = true;
             }
+            
             _rb.isKinematic = false;
         }
         
