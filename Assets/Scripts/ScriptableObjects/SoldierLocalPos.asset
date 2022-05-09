@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SoldierLocalPos
   m_EditorClassIdentifier: 
   pos:
-  - {x: -13.19, y: 1.16, z: 7.07}
+  - {x: 1.1, y: 1.16, z: 31.1}
   - {x: -0, y: 0.8762761, z: 0}
   - {x: -0.18151169, y: 1.5543122e-17, z: -7.101073e-17}
   - {x: -0.13197872, y: -4.857226e-19, z: -2.6645352e-17}
