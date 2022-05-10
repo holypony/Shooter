@@ -24,8 +24,12 @@ public class EnemySoldier : Bot
     private Vector3 BulletPos;
 
     [SerializeField] private Vactor3ListSO listpos;
+    [SerializeField] private float agroDistance = 3f;
     public bool test = false;
     private NavMeshAgent _agent;
+    
+    private float dist;
+    private bool isShooting = false;
 
     private void Awake()
     {
@@ -39,9 +43,17 @@ public class EnemySoldier : Bot
 
     private void OnParticleCollision(GameObject other)
     {
-        if (!other.CompareTag("Bullet")) return;
-        BulletPos = other.transform.position;
-        Death();
+        if (other.CompareTag("Bullet"))
+        {
+            BulletPos = other.transform.position;
+            Death(50f);
+        }
+    
+        if (other.CompareTag("Mine"))
+        {
+            BulletPos = other.transform.position;
+            Death(300f);
+        }
     }
 
     private void Update()
@@ -49,7 +61,7 @@ public class EnemySoldier : Bot
         if (test)
         {
             test = false;
-            Death();
+            Death(50f);
         }
     }
 
@@ -72,8 +84,7 @@ public class EnemySoldier : Bot
             _rbs[i].transform.localPosition = listpos.Pos[i];
         }
     }
-
-
+    
     public override void Init()
     {
         base.Init();
@@ -88,15 +99,14 @@ public class EnemySoldier : Bot
         
     }
 
-    private float dist;
-    private bool isShooting = false;
+
  
     private void FixedUpdate()
     {
         if (IsAlive)
         {
             dist = Vector3.Distance(transform.position, player.transform.position);
-            if (dist < 5 && IsAlive)
+            if (dist < agroDistance && IsAlive)
             {
                 transform.LookAt(player.transform);
                 if (!isShooting)
@@ -112,10 +122,8 @@ public class EnemySoldier : Bot
                 _agent.isStopped = false;
                 Shoot(false);
             }
-
             _animator.SetFloat("Move", _agent.remainingDistance > 0.3f ? 1f : 0f);
         }
-        
     }
 
     private void Shoot(bool isFire)
@@ -132,7 +140,7 @@ public class EnemySoldier : Bot
         }
     }
 
-    private void Death()
+    private void Death(float force)
     {
         Shoot(false);
         
@@ -149,7 +157,7 @@ public class EnemySoldier : Bot
         StartCoroutine(BackToPool());
         IEnumerator BackToPool()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
             gameObject.SetActive(false);
 
         }
@@ -163,20 +171,19 @@ public class EnemySoldier : Bot
         }
         _collider.enabled = state;
     }
-    
-    private void RigidBodyControl(bool state)
+
+    private void RigidBodyControl(bool state, float force = 0)
     {
 
         if (!state)
         {
             var dir = transform.position - BulletPos;
-            
-            
             foreach (var body in _rbs)
             {
                 body.isKinematic = false;
-                body.AddForce(dir * 50f);
+                body.AddForce(dir * force);
             }
+
             _rb.isKinematic = true;
         }
         else
@@ -186,6 +193,7 @@ public class EnemySoldier : Bot
             {
                 body.isKinematic = true;
             }
+
             _rb.isKinematic = false;
         }
     }
