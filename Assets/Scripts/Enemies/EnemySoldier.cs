@@ -52,7 +52,7 @@ public class EnemySoldier : Bot
         if (other.CompareTag("Mine"))
         {
             BulletPos = other.transform.position;
-            Death(300f);
+            Death(600f);
         }
     }
 
@@ -88,19 +88,13 @@ public class EnemySoldier : Bot
     public override void Init()
     {
         base.Init();
-        
-        //SaveLocalPos();
-        
+
         ColliderControl(true);
         RigidBodyControl(true);
         _animator.enabled = true;
-        
         _agent.SetDestination(target.transform.position);
-        
     }
-
-
- 
+    
     private void FixedUpdate()
     {
         if (IsAlive)
@@ -152,7 +146,7 @@ public class EnemySoldier : Bot
         
         PsBlood.Play(true);
         ColliderControl(false);
-        RigidBodyControl(false);
+        RigidBodyControl(false, force);
 
         StartCoroutine(BackToPool());
         IEnumerator BackToPool()

@@ -6,6 +6,7 @@ public class Mine : MonoBehaviour
     
     [SerializeField] private ParticleSystem explosionPs;
     [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private CameraShaker _cameraShaker;
 
     private void Awake()
     {
@@ -16,8 +17,11 @@ public class Mine : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            _cameraShaker.CameraShake();
+            
             explosionPs.Play(true);
             _audioSource.Play();
+            Destroy(gameObject, 3f);
         }
     }
 }
