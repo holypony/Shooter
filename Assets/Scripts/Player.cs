@@ -7,31 +7,35 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private ActionController actionController;
     
-   
+    [SerializeField] private GameSetupSo gameSetupSo;
     private Animator _animator;
     private CharacterController _characterController;
     [Header("Move Setup")]
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float turnSpeed = 0.1f;
-
+    private float _turnSmoothVelocity;
     [Header("Shooting Setup")]
     [SerializeField] private ParticleSystem PsShooting;
     [SerializeField] private ParticleSystem PsShooting2;
     [SerializeField] private ParticleSystem PsShooting3;
+
+
+    [SerializeField] private int bullets = 0;
     
-    private float _turnSmoothVelocity;
+ 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
     }
-
-
-    void FixedUpdate()
+    
+    
+    private void FixedUpdate()
     {
         Move();
         Aim();
     }
+    
     private void Shoot(bool isFire)
     {
         if (isFire)
@@ -46,6 +50,7 @@ public class Player : MonoBehaviour
             PsShooting.Stop(true);
         }
     }
+    
     private void Move()
     {
         if(!_characterController.isGrounded)
@@ -74,7 +79,7 @@ public class Player : MonoBehaviour
 
             if (actionController.IsAiming)
             {
-                if (direction.magnitude >= 0.4f)
+                if (direction.magnitude >= 0.65f)
                 {
                     Shoot((true));
                     actionController.FireBool = true;

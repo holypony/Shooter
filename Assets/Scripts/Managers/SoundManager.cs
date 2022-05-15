@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource AsWeapon;
 
     [SerializeField] private AudioClip rifleShot;
-    
+
     private void Awake()
     {
         if (instance == null)
@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
         {
             AsWeapon.clip = rifleShot; 
             AsWeapon.Play();
-            yield return new WaitForSeconds(0.1f); 
+            yield return new WaitForSeconds(0.06f); 
         }
     }
     

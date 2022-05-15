@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPs: {fileID: 4572868807698799166}
   _audioSource: {fileID: 4447021646423719152}
+  _cameraShaker: {fileID: 0}
 --- !u!65 &4447021646423719153
 BoxCollider:
   m_ObjectHideFlags: 0

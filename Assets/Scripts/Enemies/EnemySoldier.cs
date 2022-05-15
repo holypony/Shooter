@@ -1,9 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.TextCore;
+
+//ORK v1
 
 public class EnemySoldier : Bot
 {
@@ -14,17 +14,11 @@ public class EnemySoldier : Bot
     private Collider[] _colliders;
     
     [Header("Shooting Setup")]
- 
-    [SerializeField] private ParticleSystem PsShooting;
-    [SerializeField] private ParticleSystem PsShooting2;
-    [SerializeField] private ParticleSystem PsShooting3;
-    
+    [SerializeField] private GameObject[] trophies;
     [SerializeField] private ParticleSystem PsBlood;
-    
     private Vector3 BulletPos;
+    [SerializeField] private Vactor3ListSO listPos;
 
-    [SerializeField] private Vactor3ListSO listpos;
-    [SerializeField] private float agroDistance = 3f;
     public bool test = false;
     private NavMeshAgent _agent;
     
@@ -67,76 +61,49 @@ public class EnemySoldier : Bot
 
     public List<Vector3> pos;
 
-    private void SaveLocalPos()
+    public void SaveLocalPos()
     {
+        _rbs = GetComponentsInChildren<Rigidbody>();
         foreach (var t in _rbs)
         {
             pos.Add(t.transform.localPosition);
         }
 
-        listpos.Pos = pos;
+        listPos.Pos = pos;
     }
     
     private void LoadLocalPos()
     {
-        for (int i = 0; i < _rbs.Length; i++)
+        for (int i = 1; i < _rbs.Length; i++)
         {
-            _rbs[i].transform.localPosition = listpos.Pos[i];
+            _rbs[i].transform.localPosition = listPos.Pos[i];
         }
     }
     
     public override void Init()
     {
         base.Init();
-
+        trophies[Random.Range(0,2)].SetActive(true);
         ColliderControl(true);
         RigidBodyControl(true);
         _animator.enabled = true;
+        _animator.SetFloat("Move", 1f);
         _agent.SetDestination(target.transform.position);
     }
     
     private void FixedUpdate()
     {
-        if (IsAlive)
-        {
-            dist = Vector3.Distance(transform.position, player.transform.position);
-            if (dist < agroDistance && IsAlive)
-            {
-                transform.LookAt(player.transform);
-                if (!isShooting)
-                {
-                    isShooting = true;
-                    _agent.isStopped = true;
-                    Shoot(true); 
-                }
-            }
-            else
-            {
-                isShooting = false;
-                _agent.isStopped = false;
-                Shoot(false);
-            }
-            _animator.SetFloat("Move", _agent.remainingDistance > 0.3f ? 1f : 0f);
-        }
+      
+
     }
 
-    private void Shoot(bool isFire)
-    {
-        if (isFire)
-        {
-            PsShooting.Play();
-            PsShooting2.Play();
-            PsShooting3.Play();
-        }
-        else
-        {
-            PsShooting.Stop(true);
-        }
-    }
 
     private void Death(float force)
     {
-        Shoot(false);
+        foreach (var trophy in trophies)
+        {
+            trophy.SetActive(false);
+        }
         
         IsAlive = false;
         
@@ -153,7 +120,6 @@ public class EnemySoldier : Bot
         {
             yield return new WaitForSeconds(3f);
             gameObject.SetActive(false);
-
         }
     }
 
