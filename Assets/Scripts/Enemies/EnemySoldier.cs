@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 //ORK v1
 
@@ -18,7 +20,7 @@ public class EnemySoldier : Bot
     [SerializeField] private ParticleSystem PsBlood;
     private Vector3 BulletPos;
     [SerializeField] private Vactor3ListSO listPos;
-
+    [SerializeField] private GameSetupSo gameSetupSo;
     public bool test = false;
     private NavMeshAgent _agent;
     
@@ -50,6 +52,15 @@ public class EnemySoldier : Bot
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Mine"))
+        {
+            BulletPos = collision.transform.position;
+            Death(600f);
+        }
+    }
+
     private void Update()
     {
         if (test)
@@ -57,10 +68,16 @@ public class EnemySoldier : Bot
             test = false;
             Death(50f);
         }
+
+        if (_agent.remainingDistance < 3f)
+        {
+            _animator.SetFloat("Move", 0f);
+        }
     }
 
     public List<Vector3> pos;
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void SaveLocalPos()
     {
         _rbs = GetComponentsInChildren<Rigidbody>();
@@ -82,24 +99,21 @@ public class EnemySoldier : Bot
     
     public override void Init()
     {
-        base.Init();
+        IsAlive = true;
+        
         trophies[Random.Range(0,2)].SetActive(true);
+        
         ColliderControl(true);
         RigidBodyControl(true);
+        
         _animator.enabled = true;
         _animator.SetFloat("Move", 1f);
-        _agent.SetDestination(target.transform.position);
+        _agent.SetDestination(gameSetupSo.Target);
     }
-    
-    private void FixedUpdate()
-    {
-      
-
-    }
-
 
     private void Death(float force)
     {
+        gameSetupSo.Kills++;
         foreach (var trophy in trophies)
         {
             trophy.SetActive(false);
@@ -156,5 +170,20 @@ public class EnemySoldier : Bot
 
             _rb.isKinematic = false;
         }
+    }
+    private void OnEnable()
+    {
+        gameSetupSo.OnTargetChange += ChangeTarget;
+    }
+
+    private void OnDisable()
+    {
+        gameSetupSo.OnTargetChange -= ChangeTarget;
+    }
+
+    private void ChangeTarget(Vector3 targetPos)
+    {
+        _agent.SetDestination(targetPos);
+
     }
 }

@@ -1,6 +1,8 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SoliderPool : PoolBase<Bot>
 {
@@ -12,40 +14,63 @@ public class SoliderPool : PoolBase<Bot>
     [SerializeField] private float timeBetweenSpawn = 1f;
     [Header("Soldier setup")]
     [SerializeField] private GameObject SoldierSpawnPoint;
-    [SerializeField] private GameObject Player;
-    [SerializeField] private GameObject Target;
+
     [Header("Other")]
     [SerializeField] private GameSetupSo gameSetupSo;
     void Awake()
     {
-        gameSetupSo.IsPlay = false;
         SoldierPool = InitPool(EnemySoldierPref, _soldiersPoolCapacity);
     }
 
-    public void StartGame()
+    private void StartGame(bool isPlay)
     {
-        
+        if(!isPlay) return;
         Spawn();
     }
 
-    public void Spawn()
+    private void Spawn()
     {
-
         StartCoroutine(SpawnSoldier());
         IEnumerator SpawnSoldier()
         {
-            yield return new WaitForSeconds(timeBetweenSpawn * 2f);
-            var i = 0;
-            while (i < _soldiersToSpawn)
+            var soldierspawned = 0;
+            while (gameSetupSo.IsPlay)
             {
-                i++;
-                var enemySoldier = Get(SoldierPool, SoldierSpawnPoint.transform.position, Quaternion.identity);
-                enemySoldier.player = Player;
-                enemySoldier.target = Target;
-                enemySoldier.Init();
+                var dif = soldierspawned - gameSetupSo.Kills;
+                
+                if (dif < 5)
+                {
+                    
+                    //yield return new WaitForSeconds(timeBetweenSpawn * 2f);
+                    var i = 0;
+                    while (i < _soldiersToSpawn)
+                    {
+                        soldierspawned++;
+                        i++;
+                        var position = SoldierSpawnPoint.transform.position;
+                        var randomSpawnPos = new Vector3((position.x + Random.Range(0f, 5f)), 0f, (position.z + Random.Range(0f, 5f)));
+                        var enemySoldier = Get(SoldierPool, randomSpawnPos, Quaternion.identity);
+                        enemySoldier.Init();
 
-                yield return new WaitForSeconds(timeBetweenSpawn);
+                        yield return new WaitForSeconds(timeBetweenSpawn);
+                    }
+                }
+                else
+                {
+                    yield return new WaitForSeconds(timeBetweenSpawn);
+                }
+                
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        gameSetupSo.OnIsPlayChange += StartGame;
+    }
+
+    private void OnDisable()
+    {
+        gameSetupSo.OnIsPlayChange -= StartGame;
     }
 }

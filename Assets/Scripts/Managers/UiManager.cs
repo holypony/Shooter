@@ -9,33 +9,45 @@ public class UiManager : MonoBehaviour
 {
     [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private GameObject SettingPanel;
-    
-    [SerializeField] private TMP_Text healthText;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //gameSetupSo.OnIsPlayChange += GameOver;
-        gameSetupSo.OnPlayerHealthChange += updateHealth;
-    }
+    [SerializeField] private GameObject StartPanel;
 
-    private void updateHealth(float health)
+    
+    [SerializeField] private TMP_Text timeLeftText;
+    [SerializeField] private TMP_Text bulletsQuantityText;
+    [SerializeField] private TMP_Text killsText;
+
+
+    private void updateIsPlay(bool isPlay)
     {
-        healthText.text = "Hp: " + health;
+        StartPanel.SetActive(!isPlay);
+    }
+    
+    private void UpdateTime(int timeLeft)
+    {
+        timeLeftText.text = "Time left: " + timeLeft + "s";
+        killsText.text = "Kills: " + gameSetupSo.Kills;
     }
 
     private void GameOver(bool obj)
     {
-        //throw new System.NotImplementedException();
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void OpenSettingPanel(bool isOpen)
     {
         SettingPanel.SetActive(isOpen);
+    }
+    
+    private void OnEnable()
+    {
+        gameSetupSo.OnIsPlayChange += updateIsPlay;
+        gameSetupSo.OnTimeLeftChange += UpdateTime;
+    }
+
+    private void OnDisable()
+    {
+        gameSetupSo.OnIsPlayChange -= updateIsPlay;
+        gameSetupSo.OnTimeLeftChange -= UpdateTime;
     }
 }

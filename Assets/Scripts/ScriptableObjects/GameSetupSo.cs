@@ -1,12 +1,23 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data/GameData")]
 public class GameSetupSo : ScriptableObject
 {
     [SerializeField] private bool isPlay;
-    [SerializeField] private float playerHealth;
-
+    [SerializeField] private int timeLeft;
+    [SerializeField] private int kills;
+    [SerializeField] private Vector3 target;
+    public Vector3 Target
+    {
+        get => target;
+        set
+        {
+            target = value;
+            OnTargetChange?.Invoke(target);
+        }
+    }
     public bool IsPlay
     {
         get => isPlay;
@@ -15,21 +26,33 @@ public class GameSetupSo : ScriptableObject
             isPlay = value;
             OnIsPlayChange?.Invoke(isPlay);
         }
-
     }
     
-    public float PlayerHealth
+    public int TimeLeft
     {
-        get => playerHealth;
+        get => timeLeft;
         set
         {
-            if (value < 1f) IsPlay = false;
-            playerHealth = value;
-            OnPlayerHealthChange?.Invoke(playerHealth);
+            timeLeft = value;
+            OnTimeLeftChange?.Invoke(timeLeft);
         }
-
     }
+    
+    public int Kills
+    {
+        get => kills;
+        set
+        {
+            kills = value;
+            OnKillsChange?.Invoke(kills);
+        }
+    }
+
+
     public event Action<bool> OnIsPlayChange;
-    public event Action<float> OnPlayerHealthChange;
+    public event Action<int> OnTimeLeftChange;
+    public event Action<int> OnKillsChange;
+    public event Action<Vector3> OnTargetChange;
+
 
 }

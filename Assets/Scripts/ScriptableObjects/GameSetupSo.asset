@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f503886b67bf8460fb708ba64f2c769a, type: 3}
   m_Name: GameSetupSo
   m_EditorClassIdentifier: 
-  isPlay: 0
+  isPlay: 1
+  timeLeft: 21
