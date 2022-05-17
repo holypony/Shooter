@@ -27,6 +27,8 @@ public class EnemySoldier : Bot
     private float dist;
     private bool isShooting = false;
 
+   
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -132,9 +134,17 @@ public class EnemySoldier : Bot
         StartCoroutine(BackToPool());
         IEnumerator BackToPool()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
+            SpawnBox();
             gameObject.SetActive(false);
         }
+    }
+
+    private void SpawnBox()
+    {
+        int i = Random.Range(0, 3);
+        if (i == 2) return;
+        bonusManager.SpawnBox(_rbs[1].transform.position);
     }
 
     private void ColliderControl(bool state)

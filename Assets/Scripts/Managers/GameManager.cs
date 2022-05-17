@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         gameSetupSo.Kills = 0;
+        gameSetupSo.Bullets = 3;
         gameSetupSo.IsPlay = false;
     }
 

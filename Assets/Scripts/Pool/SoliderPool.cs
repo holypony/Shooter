@@ -17,6 +17,7 @@ public class SoliderPool : PoolBase<Bot>
 
     [Header("Other")]
     [SerializeField] private GameSetupSo gameSetupSo;
+    [SerializeField] private BonusManager _bonusManager;
     void Awake()
     {
         SoldierPool = InitPool(EnemySoldierPref, _soldiersPoolCapacity);
@@ -37,11 +38,8 @@ public class SoliderPool : PoolBase<Bot>
             while (gameSetupSo.IsPlay)
             {
                 var dif = soldierspawned - gameSetupSo.Kills;
-                
                 if (dif < 5)
                 {
-                    
-                    //yield return new WaitForSeconds(timeBetweenSpawn * 2f);
                     var i = 0;
                     while (i < _soldiersToSpawn)
                     {
@@ -50,6 +48,7 @@ public class SoliderPool : PoolBase<Bot>
                         var position = SoldierSpawnPoint.transform.position;
                         var randomSpawnPos = new Vector3((position.x + Random.Range(0f, 5f)), 0f, (position.z + Random.Range(0f, 5f)));
                         var enemySoldier = Get(SoldierPool, randomSpawnPos, Quaternion.identity);
+                        enemySoldier.bonusManager = _bonusManager;
                         enemySoldier.Init();
 
                         yield return new WaitForSeconds(timeBetweenSpawn);

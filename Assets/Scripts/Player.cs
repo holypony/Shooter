@@ -10,10 +10,12 @@ public class Player : MonoBehaviour
     [SerializeField] private GameSetupSo gameSetupSo;
     private Animator _animator;
     private CharacterController _characterController;
+    
     [Header("Move Setup")]
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float turnSpeed = 0.1f;
     private float _turnSmoothVelocity;
+    
     [Header("Shooting Setup")]
     [SerializeField] private ParticleSystem PsShooting;
     [SerializeField] private ParticleSystem PsShooting2;
@@ -21,35 +23,20 @@ public class Player : MonoBehaviour
 
 
     [SerializeField] private int bullets = 0;
-    
+    private bool isShooting = false;
  
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
     }
-    
-    
+
     private void FixedUpdate()
     {
         Move();
         Aim();
     }
     
-    private void Shoot(bool isFire)
-    {
-        if (isFire)
-        {
-
-            PsShooting.Play();
-            PsShooting2.Play();
-            PsShooting3.Play();
-        }
-        else
-        {
-            PsShooting.Stop(true);
-        }
-    }
     
     private void Move()
     {
@@ -79,28 +66,47 @@ public class Player : MonoBehaviour
 
             if (actionController.IsAiming)
             {
-                if (direction.magnitude >= 0.65f)
+                if (direction.magnitude >= 0.65f && gameSetupSo.Bullets > 0)
                 {
-                    Shoot((true));
-                    actionController.FireBool = true;
+                    
+                    PsShooting.Play();
+                    PsShooting2.Play();
+                    PsShooting3.Play();
+
+                    if (!isShooting)
+                    {
+                        StartCoroutine(Shooting());
+                    }
+                    IEnumerator Shooting()
+                    {
+                        isShooting = true;
+                        while (isShooting)
+                        {
+                           
+                            gameSetupSo.Bullets--;
+                            SoundManager.instance.PlayRifleShot();
+                            
+                            if (gameSetupSo.Bullets < 1)
+                            {
+                                isShooting = false;
+                            }
+                            
+                            yield return new WaitForSeconds(0.09f); 
+                        }
+                    }
+                }
+                else
+                {
+                    isShooting = false;
+                    PsShooting.Stop(true);
                 }
             }
         }
         else
         {
-            Shoot((false));
-            actionController.FireBool = false;
+            isShooting = false;
+            PsShooting.Stop(true);
         }
-    }
-
-    private void OnEnable()
-    {
-        actionController.OnFireBoolChange += Shoot;
-    }
-    
-    private void OnDisable()
-    {
-        actionController.OnFireBoolChange -= Shoot;
     }
 }
 

@@ -27,12 +27,12 @@ public class UiManager : MonoBehaviour
         timeLeftText.text = "Time left: " + timeLeft + "s";
         killsText.text = "Kills: " + gameSetupSo.Kills;
     }
-
-    private void GameOver(bool obj)
+    
+    private void UpdateBullets(int bullets)
     {
+        bulletsQuantityText.text = "Bullets: " + bullets;
 
     }
-
 
     public void OpenSettingPanel(bool isOpen)
     {
@@ -41,13 +41,17 @@ public class UiManager : MonoBehaviour
     
     private void OnEnable()
     {
+        bulletsQuantityText.text = "Bullets: " + gameSetupSo.Bullets;
+        
         gameSetupSo.OnIsPlayChange += updateIsPlay;
         gameSetupSo.OnTimeLeftChange += UpdateTime;
+        gameSetupSo.OnBulletsChange += UpdateBullets;
     }
 
     private void OnDisable()
     {
         gameSetupSo.OnIsPlayChange -= updateIsPlay;
         gameSetupSo.OnTimeLeftChange -= UpdateTime;
+        gameSetupSo.OnBulletsChange -= UpdateBullets;
     }
 }

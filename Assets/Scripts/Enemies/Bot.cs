@@ -6,7 +6,7 @@ public abstract class Bot : MonoBehaviour
 {
 
     private bool isAlive = false;
-    
+    public BonusManager bonusManager;
     public virtual void Init()
     {
         IsAlive = true;
