@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 995bab93062004ed5a4ce113ac1930cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8ec7bed8b86f4a3d905859476e40a84, type: 3}
   m_Color: {r: 0.34229445, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -148,7 +148,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 693b44b53fda8a746a395a681cc27418, type: 2}
+  - {fileID: 2100000, guid: 4d90b71fbbabc499f93e16953999d1ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -195,7 +195,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a330eccab5bbf4ded84475835942f759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAmmoBox: 1
+  isAmmoBox: 0
   isRocketBox: 0
   isTimeBox: 0
+  isMineBox: 0
   gameSetupSo: {fileID: 11400000, guid: a323d7ccae41841a2a7e6216e79416be, type: 2}
+  spriteRenderer: {fileID: 33449891313231544}
+  ammoSprite: {fileID: 21300000, guid: 995bab93062004ed5a4ce113ac1930cc, type: 3}
+  mineSprite: {fileID: 21300000, guid: d8ec7bed8b86f4a3d905859476e40a84, type: 3}
+  MinePrefab: {fileID: 4447021646423719164, guid: 7de4c5de3ab414f4abf9e5e80342ccda,
+    type: 3}

@@ -134,8 +134,10 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.5.0
+  bundleVersion: 0.5.4
   preloadedAssets:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -160,7 +162,7 @@ PlayerSettings:
     iPhone: com.quattroppio.shooter
   buildNumber:
     Standalone: 0
-    iPhone: 3
+    iPhone: 4
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
@@ -275,7 +277,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: fdc3ad5fb76254238bca973927314946, type: 3}
+      m_Icon: {fileID: 2800000, guid: 04863aec0d9dd44d59e9742e70e86345, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

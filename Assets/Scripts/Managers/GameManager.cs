@@ -15,17 +15,21 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        gameSetupSo.Kills = 0;
-        gameSetupSo.Bullets = 3;
+        
         gameSetupSo.IsPlay = false;
     }
 
     private void MatchManager(bool isPlay)
     {
+        
+        
         if (isPlay)
         {
+            gameSetupSo.Kills = 0;
+            gameSetupSo.Bullets = 50;
+            
             gameSetupSo.TimeLeft = matchTime;
-            StartCoroutine(Timer());
+            //StartCoroutine(Timer());
             IEnumerator Timer()
             {
                 while (1 < gameSetupSo.TimeLeft)

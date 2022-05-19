@@ -12,8 +12,10 @@ public class SoliderPool : PoolBase<Bot>
     [SerializeField] private int _soldiersPoolCapacity= 1;
     [SerializeField] private int _soldiersToSpawn = 15;
     [SerializeField] private float timeBetweenSpawn = 1f;
-    [Header("Soldier setup")]
-    [SerializeField] private GameObject SoldierSpawnPoint;
+    [SerializeField] private Vector2 spawnRadius = new Vector2(10f,15f);
+
+    [SerializeField] private GameObject target;
+
 
     [Header("Other")]
     [SerializeField] private GameSetupSo gameSetupSo;
@@ -21,48 +23,55 @@ public class SoliderPool : PoolBase<Bot>
     void Awake()
     {
         SoldierPool = InitPool(EnemySoldierPref, _soldiersPoolCapacity);
+        
     }
 
     private void StartGame(bool isPlay)
     {
         if(!isPlay) return;
+        offAllObjects(SoldierPool);
         Spawn();
+        
     }
 
+    [SerializeField] private int soldierAlive = 0;
+    [SerializeField] private int soldierSpawned = 0;
     private void Spawn()
     {
-        StartCoroutine(SpawnSoldier());
-        IEnumerator SpawnSoldier()
+        StartCoroutine(Spawner());
+        
+        IEnumerator Spawner()
         {
-            var soldierspawned = 0;
             while (gameSetupSo.IsPlay)
             {
-                var dif = soldierspawned - gameSetupSo.Kills;
-                if (dif < 5)
-                {
-                    var i = 0;
-                    while (i < _soldiersToSpawn)
-                    {
-                        soldierspawned++;
-                        i++;
-                        var position = SoldierSpawnPoint.transform.position;
-                        var randomSpawnPos = new Vector3((position.x + Random.Range(0f, 5f)), 0f, (position.z + Random.Range(0f, 5f)));
-                        var enemySoldier = Get(SoldierPool, randomSpawnPos, Quaternion.identity);
-                        enemySoldier.bonusManager = _bonusManager;
-                        enemySoldier.Init();
-
-                        yield return new WaitForSeconds(timeBetweenSpawn);
-                    }
-                }
-                else
-                {
-                    yield return new WaitForSeconds(timeBetweenSpawn);
-                }
+                soldierAlive = soldierSpawned - gameSetupSo.Kills;
                 
+                if (soldierAlive < _soldiersToSpawn)
+                {
+                    soldierSpawned++;
+                    SpawnSoldier(GetRandomPos());
+                }
+                yield return new WaitForSeconds(timeBetweenSpawn);
             }
         }
     }
 
+    private Vector3 GetRandomPos()
+    {
+        var pos = RandomPointInAnnulus(spawnRadius.x,spawnRadius.y);
+        var randomSpawnPos = new Vector3(pos.x, 0f, pos.y);
+        return randomSpawnPos;
+    }
+
+    private void SpawnSoldier(Vector3 randomSpawnPos)
+    {
+        var enemySoldier = Get(SoldierPool, randomSpawnPos, Quaternion.identity);
+        enemySoldier.bonusManager = _bonusManager;
+        enemySoldier.PlayerTarget = target;
+        enemySoldier.Init();
+        
+    }
+    
     private void OnEnable()
     {
         gameSetupSo.OnIsPlayChange += StartGame;
@@ -71,5 +80,20 @@ public class SoliderPool : PoolBase<Bot>
     private void OnDisable()
     {
         gameSetupSo.OnIsPlayChange -= StartGame;
+    }
+
+
+    private Vector2 RandomPointInAnnulus(float minRadius, float maxRadius){
+        
+        var position = target.transform.position;
+        var origin = new Vector2(position.x + 0.1f, position.z - 0.1f);
+        
+        var randomDirection = (Random.insideUnitCircle * origin).normalized;
+ 
+        var randomDistance = Random.Range(minRadius, maxRadius);
+ 
+        var point = origin + randomDirection * randomDistance;
+ 
+        return point;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 //[CustomEditor(typeof(EnemySoldier))]
-public class orkInspectorHelper : MonoBehaviour
+public class orkInspectorHelper
 {
     /*
     public override void OnInspectorGUI()

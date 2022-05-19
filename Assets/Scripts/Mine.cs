@@ -17,7 +17,7 @@ public class Mine : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            _cameraShaker.CameraShake();
+            //_cameraShaker.CameraShake();
             
             explosionPs.Play(true);
             _audioSource.Play();

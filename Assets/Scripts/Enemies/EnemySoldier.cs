@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
-
-//ORK v1
-
 public class EnemySoldier : Bot
 {
     private Animator _animator;
@@ -21,14 +18,8 @@ public class EnemySoldier : Bot
     private Vector3 BulletPos;
     [SerializeField] private Vactor3ListSO listPos;
     [SerializeField] private GameSetupSo gameSetupSo;
-    public bool test = false;
     private NavMeshAgent _agent;
     
-    private float dist;
-    private bool isShooting = false;
-
-   
-
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -39,12 +30,18 @@ public class EnemySoldier : Bot
         _agent = GetComponent<NavMeshAgent>();
     }
 
+    private void FixedUpdate()
+    {
+        var dist = Vector3.Distance(transform.position, PlayerTarget.transform.position);
+        if (dist < 1f && IsAlive) gameSetupSo.IsPlay = false;
+    }
+
     private void OnParticleCollision(GameObject other)
     {
         if (other.CompareTag("Bullet"))
         {
             BulletPos = other.transform.position;
-            Death(50f);
+            Death(150f);
         }
     
         if (other.CompareTag("Mine"))
@@ -58,27 +55,12 @@ public class EnemySoldier : Bot
     {
         if (collision.transform.CompareTag("Mine"))
         {
-            BulletPos = collision.transform.position;
+            BulletPos = collision.transform.position.normalized;
             Death(600f);
         }
     }
 
-    private void Update()
-    {
-        if (test)
-        {
-            test = false;
-            Death(50f);
-        }
-
-        if (_agent.remainingDistance < 3f)
-        {
-            _animator.SetFloat("Move", 0f);
-        }
-    }
-
     public List<Vector3> pos;
-
     // ReSharper disable Unity.PerformanceAnalysis
     public void SaveLocalPos()
     {
@@ -110,12 +92,21 @@ public class EnemySoldier : Bot
         
         _animator.enabled = true;
         _animator.SetFloat("Move", 1f);
-        _agent.SetDestination(gameSetupSo.Target);
+
+        StartCoroutine(UpdateTarget());
+        IEnumerator UpdateTarget()
+        {
+            while (IsAlive)
+            {
+                _agent.SetDestination(PlayerTarget.transform.position);
+                yield return new WaitForSeconds(1f);
+            }
+        }
     }
 
     private void Death(float force)
     {
-        gameSetupSo.Kills++;
+        
         foreach (var trophy in trophies)
         {
             trophy.SetActive(false);
@@ -134,7 +125,8 @@ public class EnemySoldier : Bot
         StartCoroutine(BackToPool());
         IEnumerator BackToPool()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
+            gameSetupSo.Kills++;
             SpawnBox();
             gameObject.SetActive(false);
         }
@@ -143,8 +135,9 @@ public class EnemySoldier : Bot
     private void SpawnBox()
     {
         int i = Random.Range(0, 3);
-        if (i == 2) return;
-        bonusManager.SpawnBox(_rbs[1].transform.position);
+        if (i < 2) return;
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+        bonusManager.SpawnBox(pos);
     }
 
     private void ColliderControl(bool state)
@@ -176,24 +169,11 @@ public class EnemySoldier : Bot
             foreach (var body in _rbs)
             {
                 body.isKinematic = true;
+                
             }
 
-            _rb.isKinematic = false;
+            _rb.isKinematic = true;
+            //_rb.velocity = Vector3.zero;
         }
-    }
-    private void OnEnable()
-    {
-        gameSetupSo.OnTargetChange += ChangeTarget;
-    }
-
-    private void OnDisable()
-    {
-        gameSetupSo.OnTargetChange -= ChangeTarget;
-    }
-
-    private void ChangeTarget(Vector3 targetPos)
-    {
-        _agent.SetDestination(targetPos);
-
     }
 }

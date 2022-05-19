@@ -98,11 +98,11 @@ Material:
     - _GrassCut: 0
     - _GrassSaturation: 8.2
     - _GrassShading: 0.114
-    - _GrassThinness: 0.76
-    - _GrassThinnessIntersection: 0.13
+    - _GrassThinness: 0.52
+    - _GrassThinnessIntersection: 0.83
     - _Metallic: 0
     - _Mode: 0
-    - _NoisePower: 1
+    - _NoisePower: 1.93
     - _NumberOfStacks: 0
     - _OcclusionStrength: 1
     - _OffsetValue: 2.5
@@ -118,9 +118,9 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TilingN1: 6.06
+    - _TilingN1: 7.69
     - _TilingN2: 0.05
-    - _TilingN3: 1
+    - _TilingN3: 0.95
     - _UVSec: 0
     - _UseAmbientLight: 1
     - _UsePR: 0
@@ -130,7 +130,7 @@ Material:
     - _UseTP: 0
     - _UseVR: 0
     - _UseWC: 0
-    - _WindForce: 0.25
+    - _WindForce: 0.44
     - _WindMovement: 0.25
     - _WorldRotation: 0
     - _WorldScale: 10

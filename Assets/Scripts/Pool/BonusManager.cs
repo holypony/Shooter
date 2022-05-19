@@ -11,12 +11,14 @@ public class BonusManager : PoolBase<BonusBox>
 
     void Awake()
     {
-        BoxPool = InitPool(BoxPref, _boxesPoolCapacity);
+        BoxPool = InitPool(BoxPref, _boxesPoolCapacity, true);
     }
 
     public void SpawnBox(Vector3 spawnPos)
     {
         
-        var enemySoldier = Get(BoxPool, spawnPos, Quaternion.identity);
+        var box = Get(BoxPool, spawnPos, Quaternion.identity);
+        box.Init();
+        
     }
 }

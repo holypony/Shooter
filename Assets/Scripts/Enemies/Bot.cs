@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Bot : MonoBehaviour
 {
-
+    public GameObject PlayerTarget;
     private bool isAlive = false;
     public BonusManager bonusManager;
     public virtual void Init()

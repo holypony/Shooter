@@ -9,16 +9,9 @@ public class GameSetupSo : ScriptableObject
     [SerializeField] private int timeLeft;
     [SerializeField] private int bullets;
     [SerializeField] private int kills;
-    [SerializeField] private Vector3 target;
-    public Vector3 Target
-    {
-        get => target;
-        set
-        {
-            target = value;
-            OnTargetChange?.Invoke(target);
-        }
-    }
+
+
+
     public bool IsPlay
     {
         get => isPlay;

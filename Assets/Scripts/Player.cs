@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem PsShooting3;
 
 
-    [SerializeField] private int bullets = 0;
+
     private bool isShooting = false;
  
     private void Awake()

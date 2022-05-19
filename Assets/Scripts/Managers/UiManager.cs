@@ -10,9 +10,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private GameObject SettingPanel;
     [SerializeField] private GameObject StartPanel;
-
     
-    [SerializeField] private TMP_Text timeLeftText;
     [SerializeField] private TMP_Text bulletsQuantityText;
     [SerializeField] private TMP_Text killsText;
 
@@ -22,9 +20,8 @@ public class UiManager : MonoBehaviour
         StartPanel.SetActive(!isPlay);
     }
     
-    private void UpdateTime(int timeLeft)
+    private void UpdateKills(int timeLeft)
     {
-        timeLeftText.text = "Time left: " + timeLeft + "s";
         killsText.text = "Kills: " + gameSetupSo.Kills;
     }
     
@@ -44,14 +41,14 @@ public class UiManager : MonoBehaviour
         bulletsQuantityText.text = "Bullets: " + gameSetupSo.Bullets;
         
         gameSetupSo.OnIsPlayChange += updateIsPlay;
-        gameSetupSo.OnTimeLeftChange += UpdateTime;
+        gameSetupSo.OnKillsChange += UpdateKills;
         gameSetupSo.OnBulletsChange += UpdateBullets;
     }
 
     private void OnDisable()
     {
         gameSetupSo.OnIsPlayChange -= updateIsPlay;
-        gameSetupSo.OnTimeLeftChange -= UpdateTime;
+        gameSetupSo.OnKillsChange -= UpdateKills;
         gameSetupSo.OnBulletsChange -= UpdateBullets;
     }
 }
