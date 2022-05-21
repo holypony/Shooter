@@ -6,10 +6,32 @@ public class SoundManager : MonoBehaviour
 {
 
     public static SoundManager instance;
-
+    [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private AudioSource AsWeapon;
+    [SerializeField] private AudioSource AsBg;
+    [SerializeField] private AudioSource AsOrk;
 
-
+    public void SoundsSwitcher()
+    {
+        if (!gameSetupSo.IsSound)
+        {
+            gameSetupSo.IsSound = true;
+            
+            AsWeapon.mute = true;
+            AsBg.mute = true;
+            AsOrk.mute = true;
+        }
+        else
+        {
+            gameSetupSo.IsSound = false;
+            
+            AsWeapon.mute = false;
+            AsBg.mute = false;
+            AsOrk.mute = false;
+        }
+        
+    }
+    
 
     private void Awake()
     {
@@ -26,6 +48,11 @@ public class SoundManager : MonoBehaviour
         AsWeapon.Play();
     }
 
+    public void OrkDeath()
+    {
+        AsOrk.Play();
+    }
+    
    
     
     private void OnEnable()

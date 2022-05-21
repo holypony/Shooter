@@ -6,12 +6,11 @@ using UnityEngine;
 public class GameSetupSo : ScriptableObject
 {
     [SerializeField] private bool isPlay;
-    [SerializeField] private int timeLeft;
+    [SerializeField] private bool isSound;
+    [SerializeField] private int health;
     [SerializeField] private int bullets;
     [SerializeField] private int kills;
-
-
-
+    
     public bool IsPlay
     {
         get => isPlay;
@@ -22,13 +21,23 @@ public class GameSetupSo : ScriptableObject
         }
     }
     
-    public int TimeLeft
+    public bool IsSound
     {
-        get => timeLeft;
+        get => isSound;
         set
         {
-            timeLeft = value;
-            OnTimeLeftChange?.Invoke(timeLeft);
+            isSound = value;
+            OnIsSoundChange?.Invoke(isSound);
+        }
+    }
+    
+    public int Health
+    {
+        get => health;
+        set
+        {
+            health = value;
+            OnHealthChange?.Invoke(health);
         }
     } 
     
@@ -54,10 +63,8 @@ public class GameSetupSo : ScriptableObject
 
 
     public event Action<bool> OnIsPlayChange;
-    public event Action<int> OnTimeLeftChange;
+    public event Action<bool> OnIsSoundChange;
+    public event Action<int> OnHealthChange;
     public event Action<int> OnBulletsChange;
     public event Action<int> OnKillsChange;
-    public event Action<Vector3> OnTargetChange;
-
-
 }

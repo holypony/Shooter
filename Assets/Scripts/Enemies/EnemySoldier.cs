@@ -30,12 +30,33 @@ public class EnemySoldier : Bot
         _agent = GetComponent<NavMeshAgent>();
     }
 
+    private float _dist;
+        
+    private float cooldown = 1f;
+    private float lastHit = 0f;
+
+    
     private void FixedUpdate()
     {
-        var dist = Vector3.Distance(transform.position, PlayerTarget.transform.position);
-        if (dist < 1f && IsAlive) gameSetupSo.IsPlay = false;
+        _dist = Vector3.Distance(transform.position, PlayerTarget.transform.position);
+        if (_dist < 1f && IsAlive)
+        {
+            if (lastHit > cooldown)
+            {
+                lastHit = 0;
+                
+                gameSetupSo.Health -= 20;
+                if (gameSetupSo.Health < 1)
+                {
+                    gameSetupSo.IsPlay = false;
+                }
+            }
+            else
+            {
+                lastHit += Time.deltaTime;
+            }
+        }
     }
-
     private void OnParticleCollision(GameObject other)
     {
         if (other.CompareTag("Bullet"))
@@ -106,7 +127,7 @@ public class EnemySoldier : Bot
 
     private void Death(float force)
     {
-        
+        SoundManager.instance.OrkDeath();
         foreach (var trophy in trophies)
         {
             trophy.SetActive(false);

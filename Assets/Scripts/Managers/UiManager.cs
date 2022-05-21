@@ -10,14 +10,24 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private GameObject SettingPanel;
     [SerializeField] private GameObject StartPanel;
+    [SerializeField] private GameObject GameOverPanel;
     
     [SerializeField] private TMP_Text bulletsQuantityText;
     [SerializeField] private TMP_Text killsText;
+    [SerializeField] private TMP_Text healthText;
 
 
     private void updateIsPlay(bool isPlay)
     {
-        StartPanel.SetActive(!isPlay);
+        if (!isPlay)
+        {
+            StartPanel.SetActive(false);
+            GameOverPanel.SetActive(true);
+        }
+        else
+        {
+            GameOverPanel.SetActive(false);
+        }
     }
     
     private void UpdateKills(int timeLeft)
@@ -30,6 +40,21 @@ public class UiManager : MonoBehaviour
         bulletsQuantityText.text = "Bullets: " + bullets;
 
     }
+    
+    
+    private void UpdateHealth(int obj)
+    {
+        if (obj > 20)
+        {
+            healthText.color =Color.white;
+        }
+        else
+        {
+            healthText.color = Color.red;
+        } 
+        healthText.text = "Hp: " + obj;
+    }
+
 
     public void OpenSettingPanel(bool isOpen)
     {
@@ -43,6 +68,7 @@ public class UiManager : MonoBehaviour
         gameSetupSo.OnIsPlayChange += updateIsPlay;
         gameSetupSo.OnKillsChange += UpdateKills;
         gameSetupSo.OnBulletsChange += UpdateBullets;
+        gameSetupSo.OnHealthChange += UpdateHealth;
     }
 
     private void OnDisable()
@@ -50,5 +76,6 @@ public class UiManager : MonoBehaviour
         gameSetupSo.OnIsPlayChange -= updateIsPlay;
         gameSetupSo.OnKillsChange -= UpdateKills;
         gameSetupSo.OnBulletsChange -= UpdateBullets;
+        gameSetupSo.OnHealthChange -= UpdateHealth;
     }
 }

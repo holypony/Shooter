@@ -27,20 +27,9 @@ public class GameManager : MonoBehaviour
         {
             gameSetupSo.Kills = 0;
             gameSetupSo.Bullets = 50;
-            
-            gameSetupSo.TimeLeft = matchTime;
-            //StartCoroutine(Timer());
-            IEnumerator Timer()
-            {
-                while (1 < gameSetupSo.TimeLeft)
-                {
+            gameSetupSo.Health = 100;
 
-                    gameSetupSo.TimeLeft--;
-                    yield return new WaitForSeconds(1f);
-                }
 
-                gameSetupSo.IsPlay = false;
-            }  
         }
     }
     

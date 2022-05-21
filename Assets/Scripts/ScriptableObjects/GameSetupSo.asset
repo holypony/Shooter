@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: GameSetupSo
   m_EditorClassIdentifier: 
   isPlay: 1
-  timeLeft: 21
+  isSound: 1
+  health: 100
+  bullets: 73
+  kills: 12

@@ -3811,12 +3811,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionController: {fileID: 0}
   gameSetupSo: {fileID: 11400000, guid: a323d7ccae41841a2a7e6216e79416be, type: 2}
-  moveSpeed: 6
-  turnSpeed: 0.05
+  moveSpeed: 8
+  turnSpeed: 0.025
   PsShooting: {fileID: 1960466974684900045}
   PsShooting2: {fileID: 1960933072818305523}
   PsShooting3: {fileID: 1960648642920728199}
-  bullets: 0
 --- !u!208 &1015230591796028460
 NavMeshObstacle:
   m_ObjectHideFlags: 0

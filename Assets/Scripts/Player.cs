@@ -36,8 +36,6 @@ public class Player : MonoBehaviour
         Move();
         Aim();
     }
-    
-    
     private void Move()
     {
         if(!_characterController.isGrounded)
@@ -49,7 +47,7 @@ public class Player : MonoBehaviour
         
         _animator.SetFloat("Move", direction.magnitude);
         
-        if (direction.magnitude >= 0.4f)
+        if (direction.magnitude >= 0.1f)
         {
             _characterController.Move(direction * (moveSpeed * Time.deltaTime));
         }

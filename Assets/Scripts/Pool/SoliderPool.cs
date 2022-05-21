@@ -23,15 +23,19 @@ public class SoliderPool : PoolBase<Bot>
     void Awake()
     {
         SoldierPool = InitPool(EnemySoldierPref, _soldiersPoolCapacity);
-        
     }
 
     private void StartGame(bool isPlay)
     {
-        if(!isPlay) return;
-        offAllObjects(SoldierPool);
-        Spawn();
-        
+        if (!isPlay)
+        {
+            offAllObjects(SoldierPool);
+        }
+        else
+        {
+            soldierSpawned = 0;
+            Spawn();  
+        }
     }
 
     [SerializeField] private int soldierAlive = 0;
@@ -58,7 +62,7 @@ public class SoliderPool : PoolBase<Bot>
 
     private Vector3 GetRandomPos()
     {
-        var pos = RandomPointInAnnulus(spawnRadius.x,spawnRadius.y);
+        var pos = RandomPointInAnnulus(spawnRadius.x,spawnRadius.y);    
         var randomSpawnPos = new Vector3(pos.x, 0f, pos.y);
         return randomSpawnPos;
     }
@@ -69,7 +73,6 @@ public class SoliderPool : PoolBase<Bot>
         enemySoldier.bonusManager = _bonusManager;
         enemySoldier.PlayerTarget = target;
         enemySoldier.Init();
-        
     }
     
     private void OnEnable()
