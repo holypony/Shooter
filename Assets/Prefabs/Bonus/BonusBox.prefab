@@ -113,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 5465526288804021702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 344673163758549517}
@@ -197,11 +197,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAmmoBox: 0
   isRocketBox: 0
-  isTimeBox: 0
+  isTruckBox: 0
   isMineBox: 0
   gameSetupSo: {fileID: 11400000, guid: a323d7ccae41841a2a7e6216e79416be, type: 2}
   spriteRenderer: {fileID: 33449891313231544}
   ammoSprite: {fileID: 21300000, guid: 995bab93062004ed5a4ce113ac1930cc, type: 3}
   mineSprite: {fileID: 21300000, guid: d8ec7bed8b86f4a3d905859476e40a84, type: 3}
+  mineMat: {fileID: 2100000, guid: aeb9e59d6895748e0bc619b0f2e5b04a, type: 2}
+  ammoMat: {fileID: 2100000, guid: 4d90b71fbbabc499f93e16953999d1ee, type: 2}
+  truckMat: {fileID: 2100000, guid: bc009817cd4b64c9f80a89fab84c34e3, type: 2}
   MinePrefab: {fileID: 4447021646423719164, guid: 7de4c5de3ab414f4abf9e5e80342ccda,
     type: 3}

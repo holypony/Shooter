@@ -9,8 +9,10 @@ public class GameSetupSo : ScriptableObject
     [SerializeField] private bool isSound;
     [SerializeField] private int health;
     [SerializeField] private int bullets;
+    [SerializeField] private int rockets;
     [SerializeField] private int kills;
-    
+    [SerializeField] private int truck;
+
     public bool IsPlay
     {
         get => isPlay;
@@ -41,6 +43,16 @@ public class GameSetupSo : ScriptableObject
         }
     } 
     
+    public int Rockets
+    {
+        get => rockets;
+        set
+        {
+            rockets = value;
+            OnRocketsChange?.Invoke(rockets);
+        }
+    }
+
     public int Bullets
     {
         get => bullets;
@@ -61,10 +73,22 @@ public class GameSetupSo : ScriptableObject
         }
     }
 
+    public int Truck
+    {
+        get => truck;
+        set
+        {
+            truck = value;
+            OnTruckChange?.Invoke(truck);
+        }
+    }
+
 
     public event Action<bool> OnIsPlayChange;
     public event Action<bool> OnIsSoundChange;
     public event Action<int> OnHealthChange;
     public event Action<int> OnBulletsChange;
+    public event Action<int> OnRocketsChange;
     public event Action<int> OnKillsChange;
+    public event Action<int> OnTruckChange;
 }

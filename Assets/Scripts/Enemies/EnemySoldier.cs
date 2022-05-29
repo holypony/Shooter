@@ -33,7 +33,7 @@ public class EnemySoldier : Bot
     private float _dist;
         
     private float cooldown = 1f;
-    private float lastHit = 0f;
+    private float lastHit = 0.9f;
 
     
     private void FixedUpdate()
@@ -75,6 +75,12 @@ public class EnemySoldier : Bot
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Mine"))
+        {
+            BulletPos = collision.transform.position.normalized;
+            Death(600f);
+        }
+        
+        if (collision.transform.CompareTag("Vehicle"))
         {
             BulletPos = collision.transform.position.normalized;
             Death(600f);
@@ -127,6 +133,8 @@ public class EnemySoldier : Bot
 
     private void Death(float force)
     {
+        RigidBodyControl(false, force);
+        ColliderControl(false);
         SoundManager.instance.OrkDeath();
         foreach (var trophy in trophies)
         {
@@ -140,8 +148,8 @@ public class EnemySoldier : Bot
         _animator.enabled = false;
         
         PsBlood.Play(true);
-        ColliderControl(false);
-        RigidBodyControl(false, force);
+        
+        
 
         StartCoroutine(BackToPool());
         IEnumerator BackToPool()

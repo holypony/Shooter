@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Mine : MonoBehaviour
 {
-    
+
     [SerializeField] private ParticleSystem explosionPs;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private CameraShaker _cameraShaker;
@@ -18,9 +18,10 @@ public class Mine : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             //_cameraShaker.CameraShake();
-            
+
             explosionPs.Play(true);
             _audioSource.Play();
+            CameraShaker.instance.CameraShake();
             Destroy(gameObject, 3f);
         }
     }

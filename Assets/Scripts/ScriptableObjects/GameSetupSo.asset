@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlay: 1
   isSound: 1
-  health: 100
-  bullets: 73
-  kills: 12
+  health: 60
+  bullets: 74
+  rockets: 2
+  kills: 40
+  truck: 3

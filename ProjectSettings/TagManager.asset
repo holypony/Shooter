@@ -7,6 +7,7 @@ TagManager:
   - Bullet
   - Enemy
   - Mine
+  - Vehicle
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Soldier
   - DeadSoldier
   - Bonus
-  - 
+  - Mine
   - 
   - 
   - 

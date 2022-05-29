@@ -3,24 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="60804833-0a2b-4865-96b9-871a2f40b8dd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/External/BruteForce-GrassShader/Materials/URP/MacMobile/URPMacMobileGrass05.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/BruteForce-GrassShader/Materials/URP/MacMobile/URPMacMobileGrass05.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Models/Characters(Clone).controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Models/Characters(Clone).controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Characters/Ork.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Characters/Ork.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Characters/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Characters/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/GameScene.lighting" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/GameScene.lighting" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Prefabs/FX/Materials/BonusBox.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External/PolygonMilitary/Prefabs/FX/Materials/BonusBox.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Bonus/BonusBox.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Bonus/BonusBox.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/Mine.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/Mine.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SM_Veh_Truck_01.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SM_Veh_Truck_01.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/GameScene.lighting" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/GameScene.lighting.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Pointer.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Pointer.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/aim.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/aim.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/arrows.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/arrows.png.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game/NavMesh.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game/NavMesh.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BonusBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BonusBox.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemySoldier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemySoldier.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/SoundManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/SoundManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UiManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UiManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/SoliderPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/SoliderPool.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/GameSetupSo.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/GameSetupSo.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/GameSetupSo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/GameSetupSo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/SampleSceneProfile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/SampleSceneProfile.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mono_crash.105b96b780.0.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mono_crash.36cad711ae.0.json" beforeDir="false" />
@@ -33,6 +39,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../MissileSystem/Assets/Scripts/Weapons/HomingMissile.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Demigiant/DOTween/Modules/DOTweenModuleEPOOutline.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BonusBox.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CameraShaker.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Bot.cs" root0="FORCE_HIGHLIGHTING" />
@@ -124,7 +131,8 @@
       <workItem from="1652648860427" duration="2086000" />
       <workItem from="1652693741934" duration="36698000" />
       <workItem from="1652892609673" duration="10658000" />
-      <workItem from="1653052654788" duration="7793000" />
+      <workItem from="1653052654788" duration="13309000" />
+      <workItem from="1653476550448" duration="7615000" />
     </task>
     <servers />
   </component>

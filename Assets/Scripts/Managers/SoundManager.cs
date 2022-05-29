@@ -9,7 +9,12 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private AudioSource AsWeapon;
     [SerializeField] private AudioSource AsBg;
-    [SerializeField] private AudioSource AsOrk;
+    
+    [SerializeField] private AudioSource AsOrk1;
+    [SerializeField] private AudioSource AsOrk2;
+
+    [SerializeField] private AudioClip[] deathRattles;
+    [SerializeField] private AudioSource[] orkAs;
 
     public void SoundsSwitcher()
     {
@@ -19,7 +24,9 @@ public class SoundManager : MonoBehaviour
             
             AsWeapon.mute = true;
             AsBg.mute = true;
-            AsOrk.mute = true;
+            AsOrk1.mute = true;
+            AsOrk2.mute = true;
+
         }
         else
         {
@@ -27,12 +34,11 @@ public class SoundManager : MonoBehaviour
             
             AsWeapon.mute = false;
             AsBg.mute = false;
-            AsOrk.mute = false;
+            AsOrk1.mute = false;
+            AsOrk2.mute = false;
         }
-        
     }
     
-
     private void Awake()
     {
         if (instance == null)
@@ -48,9 +54,15 @@ public class SoundManager : MonoBehaviour
         AsWeapon.Play();
     }
 
+    private int i = 0;
+    
     public void OrkDeath()
     {
-        AsOrk.Play();
+        orkAs[i].clip = deathRattles[Random.Range(0, 3)];
+        orkAs[i].Play();
+        i++;
+        
+        if (i == 1) i = 0;
     }
     
    

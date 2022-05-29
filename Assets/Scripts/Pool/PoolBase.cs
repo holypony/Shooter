@@ -23,14 +23,14 @@ public abstract class PoolBase<T> : MonoBehaviour where T : MonoBehaviour
         _prefab = prefab;
         Pool = new List<T>();
         _fixedSize = fixedSize;
-        
+
         for (var i = 0; i < initial; i++)
         {
             CreateNew(Pool);
         }
         return Pool;
     }
-    
+
     protected T Get(List<T> pool, Vector3 spawnPoint, Quaternion rotation, bool isActive = true)
     {
         foreach (var t in pool.Where(t => !t.gameObject.activeInHierarchy))
@@ -41,10 +41,15 @@ public abstract class PoolBase<T> : MonoBehaviour where T : MonoBehaviour
             t.gameObject.SetActive(isActive);
             return t;
         }
-        
-        return CreateNew(pool, true, spawnPoint.x, spawnPoint.y, spawnPoint.z);
+
+        var tt = CreateNew(pool, false, spawnPoint.x, spawnPoint.y, spawnPoint.z);
+        tt.transform.position = spawnPoint;
+        tt.transform.rotation = rotation;
+        tt.gameObject.SetActive(isActive);
+        return tt;
+
     }
-    
+
     private T CreateNew(ICollection<T> pool, bool isActive = false, float x = 0, float y = 1, float z = 0)
     {
         var item = Instantiate(_prefab);
@@ -56,13 +61,13 @@ public abstract class PoolBase<T> : MonoBehaviour where T : MonoBehaviour
         pool.Add(item);
         return item;
     }
-    
+
     protected void offAllObjects(List<T> pool)
     {
         foreach (var obj in pool)
         {
             obj.gameObject.SetActive(false);
         }
-        
+
     }
 }
