@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d8ec7bed8b86f4a3d905859476e40a84, type: 3}
-  m_Color: {r: 0.34229445, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -203,8 +203,12 @@ MonoBehaviour:
   spriteRenderer: {fileID: 33449891313231544}
   ammoSprite: {fileID: 21300000, guid: 995bab93062004ed5a4ce113ac1930cc, type: 3}
   mineSprite: {fileID: 21300000, guid: d8ec7bed8b86f4a3d905859476e40a84, type: 3}
+  truckSprite: {fileID: 21300000, guid: fb3d9ab77192f48d29273337d1eb43a5, type: 3}
+  rocketSprite: {fileID: 21300000, guid: 7c38202bc1125471cb46578c474ed80e, type: 3}
   mineMat: {fileID: 2100000, guid: aeb9e59d6895748e0bc619b0f2e5b04a, type: 2}
   ammoMat: {fileID: 2100000, guid: 4d90b71fbbabc499f93e16953999d1ee, type: 2}
   truckMat: {fileID: 2100000, guid: bc009817cd4b64c9f80a89fab84c34e3, type: 2}
+  rocketMat: {fileID: 2100000, guid: a54732a41cbd44a82aff6b3a19a52fd4, type: 2}
   MinePrefab: {fileID: 4447021646423719164, guid: 7de4c5de3ab414f4abf9e5e80342ccda,
     type: 3}
+  isDebug: 0

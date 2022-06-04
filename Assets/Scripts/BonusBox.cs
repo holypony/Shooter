@@ -21,6 +21,8 @@ public class BonusBox : MonoBehaviour
     [Header("Visual Setup")]
     [SerializeField] private Sprite ammoSprite;
     [SerializeField] private Sprite mineSprite;
+    [SerializeField] private Sprite truckSprite;
+    [SerializeField] private Sprite rocketSprite;
 
     [SerializeField] private Material mineMat;
     [SerializeField] private Material ammoMat;
@@ -50,7 +52,7 @@ public class BonusBox : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (isAmmoBox) gameSetupSo.Bullets += 30;
+            if (isAmmoBox) gameSetupSo.Bullets += 15;
             if (isMineBox)
             {
                 Instantiate(MinePrefab, transform.position, Quaternion.identity);
@@ -62,7 +64,7 @@ public class BonusBox : MonoBehaviour
 
             if (isRocketBox)
             {
-                gameSetupSo.Rockets += 5;
+                gameSetupSo.Rockets += 1;
             }
             gameObject.SetActive(false);
         }
@@ -99,7 +101,7 @@ public class BonusBox : MonoBehaviour
             case 1:
                 isTruckBox = true;
                 mr.material = truckMat;
-                spriteRenderer.sprite = ammoSprite;
+                spriteRenderer.sprite = truckSprite;
                 break;
             case 2:
                 isMineBox = true;
@@ -109,7 +111,7 @@ public class BonusBox : MonoBehaviour
             case 3:
                 isRocketBox = true;
                 mr.material = rocketMat;
-                spriteRenderer.sprite = mineSprite;
+                spriteRenderer.sprite = rocketSprite;
                 break;
         }
     }

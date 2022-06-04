@@ -69,9 +69,16 @@ public class Player : MonoBehaviour
             {
                 if (direction.magnitude >= 0.65f)
                 {
-                    if (gameSetupSo.Rockets > 0)
+                    if (gameSetupSo.IsRocketLauncher)
                     {
-                        if (!isShooting) LaunchRocket();
+                        if (gameSetupSo.Rockets > 0)
+                        {
+                            if (!isShooting) LaunchRocket();
+                        }
+                        else
+                        {
+                            if (gameSetupSo.Bullets > 0) ChangeWeapon();
+                        }
                     }
                     else
                     {
@@ -105,11 +112,8 @@ public class Player : MonoBehaviour
 
             while (isShooting)
             {
-
                 gameSetupSo.Rockets--;
-                //var rocket = Instantiate(rocketPrefab, firePoint.transform.position, Quaternion.identity);
-
-                rocketManager.SpawnRocket(firePoint.transform.position, transform.rotation);
+                rocketManager.SpawnRocket(firePoint.transform.position, firePoint.transform.rotation);
 
                 yield return new WaitForSeconds(2f);
 
@@ -119,7 +123,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void ShootRifle()
@@ -145,6 +148,26 @@ public class Player : MonoBehaviour
                 yield return new WaitForSeconds(0.09f);
             }
         }
+    }
+
+    public void ChangeWeapon()
+    {
+        if (!gameSetupSo.IsRocketLauncher)
+        {
+            if (gameSetupSo.Rockets > 0)
+            {
+                gameSetupSo.IsRocketLauncher = true;
+            }
+        }
+        else
+        {
+            if (gameSetupSo.Bullets > 0)
+            {
+                gameSetupSo.IsRocketLauncher = false;
+            }
+        }
+
+
     }
 }
 

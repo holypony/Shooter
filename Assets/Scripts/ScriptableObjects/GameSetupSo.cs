@@ -7,6 +7,7 @@ public class GameSetupSo : ScriptableObject
 {
     [SerializeField] private bool isPlay;
     [SerializeField] private bool isSound;
+    [SerializeField] private bool isRocketLauncher;
     [SerializeField] private int health;
     [SerializeField] private int bullets;
     [SerializeField] private int rockets;
@@ -22,7 +23,17 @@ public class GameSetupSo : ScriptableObject
             OnIsPlayChange?.Invoke(isPlay);
         }
     }
-    
+
+    public bool IsRocketLauncher
+    {
+        get => isRocketLauncher;
+        set
+        {
+            isRocketLauncher = value;
+            OnIsRocketLauncherChange?.Invoke(isRocketLauncher);
+        }
+    }
+
     public bool IsSound
     {
         get => isSound;
@@ -32,7 +43,7 @@ public class GameSetupSo : ScriptableObject
             OnIsSoundChange?.Invoke(isSound);
         }
     }
-    
+
     public int Health
     {
         get => health;
@@ -41,8 +52,8 @@ public class GameSetupSo : ScriptableObject
             health = value;
             OnHealthChange?.Invoke(health);
         }
-    } 
-    
+    }
+
     public int Rockets
     {
         get => rockets;
@@ -62,7 +73,7 @@ public class GameSetupSo : ScriptableObject
             OnBulletsChange?.Invoke(bullets);
         }
     }
-    
+
     public int Kills
     {
         get => kills;
@@ -88,7 +99,10 @@ public class GameSetupSo : ScriptableObject
     public event Action<bool> OnIsSoundChange;
     public event Action<int> OnHealthChange;
     public event Action<int> OnBulletsChange;
-    public event Action<int> OnRocketsChange;
     public event Action<int> OnKillsChange;
+
+    public event Action<bool> OnIsRocketLauncherChange;
+
+    public event Action<int> OnRocketsChange;
     public event Action<int> OnTruckChange;
 }

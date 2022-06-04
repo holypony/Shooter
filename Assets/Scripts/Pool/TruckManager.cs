@@ -32,6 +32,9 @@ public class TruckManager : PoolBase<Vehicles>
         }
     }
 
+
+    private Vector3 plus = new Vector3(0, 0, 7);
+    private Vector3 minus = new Vector3(0, 0, -7);
     public void SpawnTruck(int tr)
     {
 
@@ -42,7 +45,7 @@ public class TruckManager : PoolBase<Vehicles>
         if (i == 1)
         {
 
-            truck.transform.position = new Vector3(0, 0, 11) + player.transform.position;
+            truck.transform.position = plus + player.transform.position;
             if (t == 0)
             {
                 truck.transform.rotation = Quaternion.Euler(0, 135, 0);
@@ -54,7 +57,7 @@ public class TruckManager : PoolBase<Vehicles>
         }
         else
         {
-            truck.transform.position = new Vector3(0, 0, -11) + player.transform.position;
+            truck.transform.position = minus + player.transform.position;
             if (t == 0)
             {
                 truck.transform.rotation = Quaternion.Euler(0, 45, 0);

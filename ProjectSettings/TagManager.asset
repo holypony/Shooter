@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Mine
   - Vehicle
+  - Rocket
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - DeadSoldier
   - Bonus
   - Mine
-  - 
+  - Vehicle
   - 
   - 
   - 

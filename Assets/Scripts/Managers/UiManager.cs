@@ -28,18 +28,22 @@ public class UiManager : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private Sprite soundOff;
     [SerializeField] private Sprite soundOn;
+    [SerializeField] private Sprite spriteWeaponSelect;
+    [SerializeField] private Sprite spriteWeaponUnSelect;
+
     [Header("Sounds Buttons")]
     [SerializeField] private Button SoundSwitcherStart;
     [SerializeField] private Button SoundSwitcherSetting;
     [SerializeField] private Button SoundSwitcherGameOver;
+
+    [SerializeField] private Button btnIsRifle;
+    [SerializeField] private Button btnIsRocket;
 
     private void Start()
     {
         StartBtn.transform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo);
 
     }
-
-
 
     private void updateIsPlay(bool isPlay)
     {
@@ -102,10 +106,24 @@ public class UiManager : MonoBehaviour
 
     }
 
+    private void ChangeWeapon(bool isRocketLauncher)
+    {
+        if (isRocketLauncher)
+        {
+            btnIsRifle.image.sprite = spriteWeaponUnSelect;
+            btnIsRocket.image.sprite = spriteWeaponSelect;
+        }
+        else
+        {
+            btnIsRifle.image.sprite = spriteWeaponSelect;
+            btnIsRocket.image.sprite = spriteWeaponUnSelect;
+        }
+    }
+
     private void OnEnable()
     {
         bulletsQuantityText.text = "Bullets: " + gameSetupSo.Bullets;
-
+        gameSetupSo.OnIsRocketLauncherChange += ChangeWeapon;
         gameSetupSo.OnIsPlayChange += updateIsPlay;
         gameSetupSo.OnIsSoundChange += ChangeSoundsBtnImgs;
         gameSetupSo.OnKillsChange += UpdateKills;
@@ -116,11 +134,19 @@ public class UiManager : MonoBehaviour
 
     private void OnDisable()
     {
+        gameSetupSo.OnIsRocketLauncherChange -= ChangeWeapon;
         gameSetupSo.OnIsPlayChange -= updateIsPlay;
         gameSetupSo.OnIsSoundChange -= ChangeSoundsBtnImgs;
         gameSetupSo.OnKillsChange -= UpdateKills;
         gameSetupSo.OnBulletsChange -= UpdateBullets;
         gameSetupSo.OnRocketsChange -= UpdateRockets;
         gameSetupSo.OnHealthChange -= UpdateHealth;
+    }
+
+
+
+    public void PravacyPolice()
+    {
+        Application.OpenURL("https://telegra.ph/Privacy-Policy-06-02-14");
     }
 }

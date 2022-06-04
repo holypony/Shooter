@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
             gameSetupSo.Bullets = 50;
             gameSetupSo.Rockets = 1;
             gameSetupSo.Health = 100;
+            gameSetupSo.IsRocketLauncher = false;
             SwitchCameras();
         }
     }
