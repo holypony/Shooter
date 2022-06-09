@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: GameSetupSo
   m_EditorClassIdentifier: 
   isPlay: 1
-  isSound: 1
-  health: 60
-  bullets: 74
-  rockets: 2
-  kills: 40
-  truck: 3
+  isSound: 0
+  isRocketLauncher: 0
+  health: 100
+  bullets: 50
+  rockets: 0
+  kills: 0
+  truck: 39

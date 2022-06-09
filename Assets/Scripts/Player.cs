@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -36,6 +34,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         Move();
         Aim();
     }
@@ -44,6 +43,7 @@ public class Player : MonoBehaviour
         if (!_characterController.isGrounded)
         {
             _characterController.Move(Vector3.down * (moveSpeed * Time.deltaTime));
+            if (transform.position.y < -3f) gameSetupSo.IsPlay = false;
         }
 
         var direction = new Vector3(actionController.Move.x, 0, actionController.Move.y);
@@ -166,8 +166,6 @@ public class Player : MonoBehaviour
                 gameSetupSo.IsRocketLauncher = false;
             }
         }
-
-
     }
 }
 

@@ -42,6 +42,8 @@ public class UiManager : MonoBehaviour
     private void Start()
     {
         StartBtn.transform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo);
+        ChangeSoundsBtnImgs(gameSetupSo.IsSound);
+
 
     }
 
@@ -96,11 +98,13 @@ public class UiManager : MonoBehaviour
         if (isSound)
         {
             SoundSwitcherStart.image.sprite = soundOn;
+            SoundSwitcherSetting.image.sprite = soundOn;
             SoundSwitcherGameOver.image.sprite = soundOn;
         }
         else
         {
             SoundSwitcherStart.image.sprite = soundOff;
+            SoundSwitcherSetting.image.sprite = soundOff;
             SoundSwitcherGameOver.image.sprite = soundOff;
         }
 

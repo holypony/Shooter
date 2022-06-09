@@ -19,9 +19,6 @@ public class CameraShaker : MonoBehaviour
             return;
         }
         Destroy(this.gameObject);
-
-
-
     }
 
     void OnEnable()

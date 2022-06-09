@@ -4,7 +4,7 @@
 
 Alive state
 
-\_rb.kinematic = true; - wtf?
+\_rb.kinematic = true; - wtf? Because nav mesh cant work with rb.kinematic = false;
 \_rbs.kinematic = true;
 
 Dead state

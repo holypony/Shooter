@@ -473,6 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   explode: {fileID: 470345414243643716}
+  gameSetupSo: {fileID: 0}
 --- !u!54 &8566389424923613889
 Rigidbody:
   m_ObjectHideFlags: 0

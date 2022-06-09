@@ -25,7 +25,7 @@ public class DebugManager : MonoBehaviour
     }
     void Update()
     {
-        if (!DebugMode) return;
+
         if (Time.unscaledTime > _timer)
         {
             int fps = (int)(1f / Time.unscaledDeltaTime);

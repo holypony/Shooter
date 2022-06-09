@@ -16,7 +16,7 @@ public class BonusBox : MonoBehaviour
     [SerializeField] private bool isTruckBox = false;
     [SerializeField] private bool isMineBox = false;
     [SerializeField] private GameSetupSo gameSetupSo;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    //[SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("Visual Setup")]
     [SerializeField] private Sprite ammoSprite;
@@ -96,22 +96,22 @@ public class BonusBox : MonoBehaviour
             case 0:
                 isAmmoBox = true;
                 mr.material = ammoMat;
-                spriteRenderer.sprite = ammoSprite;
+                //spriteRenderer.sprite = ammoSprite;
                 break;
             case 1:
                 isTruckBox = true;
                 mr.material = truckMat;
-                spriteRenderer.sprite = truckSprite;
+                //spriteRenderer.sprite = truckSprite;
                 break;
             case 2:
                 isMineBox = true;
                 mr.material = mineMat;
-                spriteRenderer.sprite = mineSprite;
+                //spriteRenderer.sprite = mineSprite;
                 break;
             case 3:
                 isRocketBox = true;
                 mr.material = rocketMat;
-                spriteRenderer.sprite = rocketSprite;
+                //spriteRenderer.sprite = rocketSprite;
                 break;
         }
     }

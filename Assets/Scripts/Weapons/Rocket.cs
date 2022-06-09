@@ -12,13 +12,15 @@ public class Rocket : MonoBehaviour
     [SerializeField] private AudioClip soundLaunch;
     [SerializeField] private AudioClip SoundExplode;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private GameSetupSo gameSetupSo;
 
-
+    private Collider collider;
     private bool targetHit = false;
     void Awake()
     {
 
         rb = GetComponent<Rigidbody>();
+        collider = GetComponent<Collider>();
         mr = GetComponent<MeshRenderer>();
     }
 
@@ -29,20 +31,20 @@ public class Rocket : MonoBehaviour
         targetHit = false;
 
         audioSource.clip = soundLaunch;
-        audioSource.Play();
-
+        if (gameSetupSo.IsSound) audioSource.Play();
+        collider.enabled = true;
         mr.enabled = true;
-        Invoke("turnOff", 6f);
+        StartCoroutine(live());
+        IEnumerator live()
+        {
+            yield return new WaitForSeconds(6f);
+            gameObject.SetActive(false);
+        }
     }
     private void FixedUpdate()
     {
-        if (targetHit)
-        {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+        if (targetHit) return;
 
-            return;
-        }
         var locVel = transform.InverseTransformDirection(rb.velocity);
         locVel.z = speed;
         rb.velocity = transform.TransformDirection(locVel);
@@ -57,21 +59,33 @@ public class Rocket : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if (targetHit) return;
-        if (col.transform.CompareTag("Enemy"))
+        if (!targetHit)
         {
-            Explode();
+            if (col.transform.CompareTag("Enemy"))
+            {
+                Explode();
+                targetHit = true;
+            }
+            else
+            {
+                Explode();
+                targetHit = true;
+            }
         }
     }
 
     private void Explode()
     {
-        targetHit = true;
+
+        collider.enabled = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
         mr.enabled = false;
         explode.Play();
 
         audioSource.clip = SoundExplode;
-        audioSource.Play();
+        if (gameSetupSo.IsSound) audioSource.Play();
         //gameObject.SetActive(false);
     }
 

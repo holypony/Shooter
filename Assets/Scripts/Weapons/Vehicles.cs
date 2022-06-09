@@ -9,7 +9,12 @@ public class Vehicles : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] private ParticleSystem explode;
+    [SerializeField] private GameSetupSo gameSetupSo;
+    [SerializeField] private GameObject go;
 
+    [SerializeField] private AudioClip soundLaunch;
+    [SerializeField] private AudioClip SoundExplode;
+    [SerializeField] private AudioSource audioSource;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -19,35 +24,35 @@ public class Vehicles : MonoBehaviour
     {
         if (collision.transform.CompareTag("Rocket"))
         {
-            explode.Play();
+            Explode();
         }
 
         if (collision.transform.CompareTag("Vehicle"))
         {
-            explode.Play();
+            Explode();
         }
+    }
+
+    private void Explode()
+    {
+        explode.Play();
+        go.SetActive(false);
+        if (gameSetupSo.IsSound) audioSource.Play();
+
     }
 
     private void OnEnable()
     {
+        go.SetActive(true);
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        StartCoroutine(move());
-
-        IEnumerator move()
+        StartCoroutine(live());
+        IEnumerator live()
         {
-            //var trPos = transform.position;
-            //var trRot = transform.rotation;
-
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(6f);
             gameObject.SetActive(false);
-
-            //rb.velocity = Vector3.zero;
-
-            //var transform1 = transform;
-            //transform1.position = trPos;
-            //transform1.rotation = trRot;
         }
+
     }
 
     private void OnDisable()
@@ -62,7 +67,6 @@ public class Vehicles : MonoBehaviour
         var locVel = transform.InverseTransformDirection(rb.velocity);
         locVel.z = speed;
         rb.velocity = transform.TransformDirection(locVel);
-
-        //transform.position += transform.forward * (speed * Time.deltaTime);
     }
+
 }

@@ -7,9 +7,7 @@ using Random = UnityEngine.Random;
 public class EnemySoldier : Bot
 {
     private Animator _animator;
-    //private Rigidbody _rb;
-    //private CapsuleCollider _collider;
-    private Rigidbody[] _rbs;
+    private Rigidbody[] _rigidbodies;
     private Collider[] _colliders;
 
     [Header("Shooting Setup")]
@@ -19,13 +17,11 @@ public class EnemySoldier : Bot
     [SerializeField] private Vactor3ListSO listPos;
     [SerializeField] private GameSetupSo gameSetupSo;
     private NavMeshAgent _agent;
-
+    [SerializeField] private bool test = false;
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        //_rb = GetComponent<Rigidbody>();
-        _rbs = GetComponentsInChildren<Rigidbody>();
-        //_collider = GetComponent<CapsuleCollider>();
+        _rigidbodies = GetComponentsInChildren<Rigidbody>();
         _colliders = GetComponentsInChildren<Collider>();
         _agent = GetComponent<NavMeshAgent>();
     }
@@ -56,51 +52,21 @@ public class EnemySoldier : Bot
                 lastHit += Time.deltaTime;
             }
         }
-    }
-    /*
-    private void OnParticleCollision(GameObject other)
-    {
-        if (other.CompareTag("Bullet"))
-        {
-            BulletPos = other.transform.position;
-            Death(150f);
-        }
 
-        if (other.CompareTag("Mine"))
+        if (test)
         {
-            BulletPos = other.transform.position;
-            Death(600f);
-        }
 
-        if (other.CompareTag("Rocket"))
-        {
-            BulletPos = other.transform.position;
-            Death(800f);
+            Death(1300f, Vector3.forward);
+            test = false;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.CompareTag("Mine"))
-        {
-            BulletPos = collision.transform.position.normalized;
-            Death(600f);
-        }
-
-        if (collision.transform.CompareTag("Vehicle"))
-        {
-            BulletPos = collision.transform.position.normalized;
-            Death(600f);
-        }
-    }
-    */
 
     public List<Vector3> pos;
-    // ReSharper disable Unity.PerformanceAnalysis
     public void SaveLocalPos()
     {
-        _rbs = GetComponentsInChildren<Rigidbody>();
-        foreach (var t in _rbs)
+        _rigidbodies = GetComponentsInChildren<Rigidbody>();
+        foreach (var t in _rigidbodies)
         {
             pos.Add(t.transform.localPosition);
         }
@@ -110,9 +76,9 @@ public class EnemySoldier : Bot
 
     private void LoadLocalPos()
     {
-        for (int i = 0; i < _rbs.Length; i++)
+        for (int i = 0; i < _rigidbodies.Length; i++)
         {
-            _rbs[i].transform.localPosition = listPos.Pos[i];
+            _rigidbodies[i].transform.localPosition = listPos.Pos[i];
         }
     }
 
@@ -144,7 +110,8 @@ public class EnemySoldier : Bot
         RigidBodyControl(false, bulletPos, force);
         ColliderControl(false);
 
-        SoundManager.instance.OrkDeath();
+        float rndSnd = Random.Range(0f, 1f);
+        if (rndSnd > 0.6f) SoundManager.instance.OrkDeath();
 
         foreach (var trophy in trophies)
         {
@@ -194,7 +161,7 @@ public class EnemySoldier : Bot
         if (!state)
         {
             var dir = transform.position - bulletPos;
-            foreach (var body in _rbs)
+            foreach (var body in _rigidbodies)
             {
                 body.isKinematic = false;
                 body.AddForce(dir * force);
@@ -203,7 +170,7 @@ public class EnemySoldier : Bot
         else
         {
             LoadLocalPos();
-            foreach (var body in _rbs)
+            foreach (var body in _rigidbodies)
             {
                 body.isKinematic = true;
             }

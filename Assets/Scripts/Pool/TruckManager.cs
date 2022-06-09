@@ -16,28 +16,10 @@ public class TruckManager : PoolBase<Vehicles>
         TruckPool = InitPool(truckPref, _truckPoolCapacity, true);
     }
 
-
-    void Start()
-    {
-        //StartCoroutine(sddd());
-
-        IEnumerator sddd()
-        {
-            while (true)
-            {
-                SpawnTruck(1);
-                yield return new WaitForSeconds(2f);
-            }
-
-        }
-    }
-
-
-    private Vector3 plus = new Vector3(0, 0, 7);
-    private Vector3 minus = new Vector3(0, 0, -7);
+    private Vector3 plus = new Vector3(0, 0, 10);
+    private Vector3 minus = new Vector3(0, 0, -10);
     public void SpawnTruck(int tr)
     {
-
         var truck = Get(TruckPool, Vector3.zero, Quaternion.identity);
 
         int i = Random.Range(0, 2);

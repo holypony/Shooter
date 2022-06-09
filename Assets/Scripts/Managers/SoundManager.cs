@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private AudioSource AsWeapon;
     [SerializeField] private AudioSource AsBg;
-    
+
     [SerializeField] private AudioSource AsOrk1;
     [SerializeField] private AudioSource AsOrk2;
 
@@ -21,24 +21,25 @@ public class SoundManager : MonoBehaviour
         if (!gameSetupSo.IsSound)
         {
             gameSetupSo.IsSound = true;
-            
-            AsWeapon.mute = true;
-            AsBg.mute = true;
-            AsOrk1.mute = true;
-            AsOrk2.mute = true;
+
+            AsWeapon.mute = false;
+            AsBg.mute = false;
+            AsOrk1.mute = false;
+            AsOrk2.mute = false;
 
         }
         else
         {
             gameSetupSo.IsSound = false;
-            
-            AsWeapon.mute = false;
-            AsBg.mute = false;
-            AsOrk1.mute = false;
-            AsOrk2.mute = false;
+
+
+            AsWeapon.mute = true;
+            AsBg.mute = true;
+            AsOrk1.mute = true;
+            AsOrk2.mute = true;
         }
     }
-    
+
     private void Awake()
     {
         if (instance == null)
@@ -48,32 +49,48 @@ public class SoundManager : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
-    
+
     public void PlayRifleShot()
     {
         AsWeapon.Play();
     }
 
     private int i = 0;
-    
+
     public void OrkDeath()
     {
         orkAs[i].clip = deathRattles[Random.Range(0, 3)];
         orkAs[i].Play();
         i++;
-        
+
         if (i == 1) i = 0;
     }
-    
-   
-    
+
+
+
     private void OnEnable()
     {
-        //actionController.OnFireBoolChange += PlayRifleShot;
+        if (!gameSetupSo.IsSound)
+        {
+            AsWeapon.mute = true;
+            AsBg.mute = true;
+            AsOrk1.mute = true;
+            AsOrk2.mute = true;
+
+
+        }
+        else
+        {
+            AsWeapon.mute = false;
+            AsBg.mute = false;
+            AsOrk1.mute = false;
+            AsOrk2.mute = false;
+
+        }
     }
-    
+
     private void OnDisable()
     {
-        //actionController.OnFireBoolChange -= PlayRifleShot;
+
     }
 }

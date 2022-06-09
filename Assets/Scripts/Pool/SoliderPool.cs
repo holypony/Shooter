@@ -1,4 +1,5 @@
 
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,13 @@ using Random = UnityEngine.Random;
 
 public class SoliderPool : PoolBase<Bot>
 {
-    private List<Bot> SoldierPool;
+    public List<Bot> SoldierPool;
     [Header("Soldier spawn setting")]
     [SerializeField] private Bot EnemySoldierPref;
-    [SerializeField] private int _soldiersPoolCapacity= 1;
+    [SerializeField] private int _soldiersPoolCapacity = 1;
     [SerializeField] private int _soldiersToSpawn = 15;
     [SerializeField] private float timeBetweenSpawn = 1f;
-    [SerializeField] private Vector2 spawnRadius = new Vector2(10f,15f);
+    [SerializeField] private Vector2 spawnRadius = new Vector2(10f, 15f);
 
     [SerializeField] private GameObject target;
 
@@ -34,7 +35,7 @@ public class SoliderPool : PoolBase<Bot>
         else
         {
             soldierSpawned = 0;
-            Spawn();  
+            Spawn();
         }
     }
 
@@ -43,13 +44,13 @@ public class SoliderPool : PoolBase<Bot>
     private void Spawn()
     {
         StartCoroutine(Spawner());
-        
+
         IEnumerator Spawner()
         {
             while (gameSetupSo.IsPlay)
             {
                 soldierAlive = soldierSpawned - gameSetupSo.Kills;
-                
+
                 if (soldierAlive < _soldiersToSpawn)
                 {
                     soldierSpawned++;
@@ -62,8 +63,11 @@ public class SoliderPool : PoolBase<Bot>
 
     private Vector3 GetRandomPos()
     {
-        var pos = RandomPointInAnnulus(spawnRadius.x,spawnRadius.y);    
+        var pos = RandomPointInAnnulus(spawnRadius.x, spawnRadius.y);
         var randomSpawnPos = new Vector3(pos.x, 0f, pos.y);
+        if (pos.x > 70 || pos.x < -70) randomSpawnPos = GetRandomPos();
+        if (pos.y > 70 || pos.y < -70) randomSpawnPos = GetRandomPos();
+
         return randomSpawnPos;
     }
 
@@ -74,7 +78,7 @@ public class SoliderPool : PoolBase<Bot>
         enemySoldier.PlayerTarget = target;
         enemySoldier.Init();
     }
-    
+
     private void OnEnable()
     {
         gameSetupSo.OnIsPlayChange += StartGame;
@@ -86,17 +90,18 @@ public class SoliderPool : PoolBase<Bot>
     }
 
 
-    private Vector2 RandomPointInAnnulus(float minRadius, float maxRadius){
-        
+    private Vector2 RandomPointInAnnulus(float minRadius, float maxRadius)
+    {
+
         var position = target.transform.position;
         var origin = new Vector2(position.x + 0.1f, position.z - 0.1f);
-        
+
         var randomDirection = (Random.insideUnitCircle * origin).normalized;
- 
+
         var randomDistance = Random.Range(minRadius, maxRadius);
- 
+
         var point = origin + randomDirection * randomDistance;
- 
+
         return point;
     }
 }
