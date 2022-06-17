@@ -10,6 +10,7 @@ public class TruckManager : PoolBase<Vehicles>
     [SerializeField] private int _truckPoolCapacity = 5;
     [SerializeField] private GameObject player;
     [SerializeField] private GameSetupSo gameSetupSo;
+    [SerializeField] private PlayerSO playerSO;
 
     void Awake()
     {
@@ -55,11 +56,11 @@ public class TruckManager : PoolBase<Vehicles>
 
     private void OnEnable()
     {
-        gameSetupSo.OnTruckChange += SpawnTruck;
+        playerSO.OnTruckChange += SpawnTruck;
     }
 
     private void OnDisable()
     {
-        gameSetupSo.OnTruckChange -= SpawnTruck;
+        playerSO.OnTruckChange -= SpawnTruck;
     }
 }

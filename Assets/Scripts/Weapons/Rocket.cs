@@ -32,9 +32,12 @@ public class Rocket : MonoBehaviour
 
         audioSource.clip = soundLaunch;
         if (gameSetupSo.IsSound) audioSource.Play();
+
         collider.enabled = true;
         mr.enabled = true;
+
         StartCoroutine(live());
+
         IEnumerator live()
         {
             yield return new WaitForSeconds(6f);
@@ -51,22 +54,11 @@ public class Rocket : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        //if (targetHit) return;
-        //transform.position += transform.forward * (speed * Time.deltaTime);
-    }
-
     private void OnCollisionEnter(Collision col)
     {
         if (!targetHit)
         {
             if (col.transform.CompareTag("Enemy"))
-            {
-                Explode();
-                targetHit = true;
-            }
-            else
             {
                 Explode();
                 targetHit = true;
@@ -86,11 +78,5 @@ public class Rocket : MonoBehaviour
 
         audioSource.clip = SoundExplode;
         if (gameSetupSo.IsSound) audioSource.Play();
-        //gameObject.SetActive(false);
-    }
-
-    private void turnOff()
-    {
-        gameObject.SetActive(false);
     }
 }

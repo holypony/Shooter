@@ -1,15 +1,23 @@
+using System.Threading.Tasks;
 using System;
 using System.Collections;
 using UnityEngine;
+using System.Linq;
 
 public class Player : MonoBehaviour
 {
+    [Header("Setup")]
     [SerializeField] private ActionController actionController;
     [SerializeField] private RocketManager rocketManager;
-
     [SerializeField] private GameSetupSo gameSetupSo;
+    [SerializeField] private PlayerSO playerSO;
+
     private Animator _animator;
     private CharacterController _characterController;
+    [SerializeField] private SoliderPool soldierPool;
+    private float distToTarget;
+    private Bot target;
+    private float distToEnemy;
 
     [Header("Move Setup")]
     [SerializeField] private float moveSpeed = 6f;
@@ -25,24 +33,25 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject rocketPrefab;
     [SerializeField] private GameObject firePoint;
     private bool isShooting = false;
+    private bool isTarget = false;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
+        InvokeRepeating("SelectTarget", 0f, 0.1f);
+        AutoAim();
     }
 
     private void FixedUpdate()
     {
-
         Move();
-        Aim();
     }
     private void Move()
     {
         if (!_characterController.isGrounded)
         {
-            _characterController.Move(Vector3.down * (moveSpeed * Time.deltaTime));
+            _characterController.Move(Vector3.down);
             if (transform.position.y < -3f) gameSetupSo.IsPlay = false;
         }
 
@@ -52,40 +61,30 @@ public class Player : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            _characterController.Move(direction * (moveSpeed * Time.deltaTime));
+            _characterController.Move(direction * moveSpeed);
         }
     }
 
-    private void Aim()
+    private void AutoAim()
     {
-        var direction = new Vector3(actionController.Aim.x, 0, actionController.Aim.y);
-        if (direction.magnitude >= 0.01f)
-        {
-            var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, turnSpeed);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        StartCoroutine(aiming());
 
-            if (actionController.IsAiming)
+        IEnumerator aiming()
+        {
+            while (true)
             {
-                if (direction.magnitude >= 0.65f)
+                while (gameSetupSo.IsPause) yield return new WaitForSeconds(1f);
+                if (isTarget)
                 {
-                    if (gameSetupSo.IsRocketLauncher)
+                    transform.LookAt(target.transform);
+
+                    if (playerSO.Rockets > 0)
                     {
-                        if (gameSetupSo.Rockets > 0)
-                        {
-                            if (!isShooting) LaunchRocket();
-                        }
-                        else
-                        {
-                            if (gameSetupSo.Bullets > 0) ChangeWeapon();
-                        }
+                        if (!isShooting) LaunchRocket();
                     }
-                    else
+                    else if (playerSO.Bullets > 0)
                     {
-                        if (gameSetupSo.Bullets > 0)
-                        {
-                            if (!isShooting) ShootRifle();
-                        }
+                        if (!isShooting) ShootRifle();
                     }
                 }
                 else
@@ -93,12 +92,28 @@ public class Player : MonoBehaviour
                     isShooting = false;
                     PsShooting.Stop(true);
                 }
+
+                yield return new WaitForSeconds(0.1f);
             }
         }
-        else
+    }
+
+    private void SelectTarget()
+    {
+        for (int i = 0; i < soldierPool.SoldierPool.Count; i++)
         {
-            isShooting = false;
-            PsShooting.Stop(true);
+
+            if (soldierPool.SoldierPool[i].IsAlive)
+            {
+                distToEnemy = Vector3.Distance(transform.position, soldierPool.SoldierPool[i].transform.position);
+                if (distToEnemy < 6f)
+                {
+                    distToTarget = distToEnemy;
+                    target = soldierPool.SoldierPool[i];
+                    isTarget = true;
+                    break;
+                }
+            }
         }
     }
 
@@ -112,12 +127,12 @@ public class Player : MonoBehaviour
 
             while (isShooting)
             {
-                gameSetupSo.Rockets--;
+                playerSO.Rockets--;
                 rocketManager.SpawnRocket(firePoint.transform.position, firePoint.transform.rotation);
 
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(.2f);
 
-                if (gameSetupSo.Rockets < 1)
+                if (playerSO.Rockets < 1)
                 {
                     isShooting = false;
                 }
@@ -138,32 +153,25 @@ public class Player : MonoBehaviour
             isShooting = true;
             while (isShooting)
             {
-                gameSetupSo.Bullets--;
+                //playerSO.Bullets--;
                 SoundManager.instance.PlayRifleShot();
 
-                if (gameSetupSo.Bullets < 1)
+                if (playerSO.Bullets < 1)
                 {
+                    PsShooting.Stop(true);
                     isShooting = false;
                 }
-                yield return new WaitForSeconds(0.09f);
-            }
-        }
-    }
+                if (isTarget)
+                {
+                    if (!target.IsAlive)
+                    {
+                        isTarget = false;
+                        PsShooting.Stop(true);
+                        isShooting = false;
+                    }
+                }
 
-    public void ChangeWeapon()
-    {
-        if (!gameSetupSo.IsRocketLauncher)
-        {
-            if (gameSetupSo.Rockets > 0)
-            {
-                gameSetupSo.IsRocketLauncher = true;
-            }
-        }
-        else
-        {
-            if (gameSetupSo.Bullets > 0)
-            {
-                gameSetupSo.IsRocketLauncher = false;
+                yield return new WaitForSeconds(0.09f);
             }
         }
     }

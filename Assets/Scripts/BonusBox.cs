@@ -16,6 +16,7 @@ public class BonusBox : MonoBehaviour
     [SerializeField] private bool isTruckBox = false;
     [SerializeField] private bool isMineBox = false;
     [SerializeField] private GameSetupSo gameSetupSo;
+    [SerializeField] private PlayerSO playerSO;
     //[SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("Visual Setup")]
@@ -50,21 +51,21 @@ public class BonusBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player1"))
         {
-            if (isAmmoBox) gameSetupSo.Bullets += 15;
+            if (isAmmoBox) playerSO.Bullets += 15;
             if (isMineBox)
             {
                 Instantiate(MinePrefab, transform.position, Quaternion.identity);
             }
             if (isTruckBox)
             {
-                gameSetupSo.Truck++;
+                playerSO.Truck++;
             }
 
             if (isRocketBox)
             {
-                gameSetupSo.Rockets += 1;
+                playerSO.Rockets += 1;
             }
             gameObject.SetActive(false);
         }

@@ -19,8 +19,6 @@ public class AiRadar : MonoBehaviour
         distToTarget = 99f;
         for (int i = 0; i < soldierPool.SoldierPool.Count; i++)
         {
-
-
             if (soldierPool.SoldierPool[i].IsAlive)
             {
                 distToEnemy = Vector3.Distance(transform.position, soldierPool.SoldierPool[i].transform.position);

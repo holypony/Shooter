@@ -1,0 +1,36 @@
+{
+  "project_info": {
+    "project_number": "739840478582",
+    "project_id": "easy-shooter",
+    "storage_bucket": "easy-shooter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739840478582:ios:425684e94a1f92d8a7fe57",
+        "android_client_info": {
+          "package_name": "com.quattroppio.shooter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739840478582-4ui40hu799eahl7jq69virjer3ks83ps.apps.googleusercontent.com"
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZalvsmslCemqQhMhJpIsBhe4vOC-xUbQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

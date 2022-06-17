@@ -13,13 +13,12 @@ public class SoliderPool : PoolBase<Bot>
     [SerializeField] private int _soldiersPoolCapacity = 1;
     [SerializeField] private int _soldiersToSpawn = 15;
     [SerializeField] private float timeBetweenSpawn = 1f;
-    [SerializeField] private Vector2 spawnRadius = new Vector2(10f, 15f);
-
+    [SerializeField] private Vector2 spawnRadius = new Vector2(15f, 15f);
     [SerializeField] private GameObject target;
-
 
     [Header("Other")]
     [SerializeField] private GameSetupSo gameSetupSo;
+    [SerializeField] private PlayerSO playerSO;
     [SerializeField] private BonusManager _bonusManager;
     void Awake()
     {
@@ -49,7 +48,8 @@ public class SoliderPool : PoolBase<Bot>
         {
             while (gameSetupSo.IsPlay)
             {
-                soldierAlive = soldierSpawned - gameSetupSo.Kills;
+                while (gameSetupSo.IsPause) yield return new WaitForSeconds(1f);
+                soldierAlive = soldierSpawned - playerSO.Kills;
 
                 if (soldierAlive < _soldiersToSpawn)
                 {

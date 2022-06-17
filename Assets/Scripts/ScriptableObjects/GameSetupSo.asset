@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f503886b67bf8460fb708ba64f2c769a, type: 3}
   m_Name: GameSetupSo
   m_EditorClassIdentifier: 
-  isPlay: 1
-  isSound: 0
+  isPlay: 0
+  isSound: 1
   isRocketLauncher: 0
   health: 100
-  bullets: 50
-  rockets: 0
-  kills: 0
-  truck: 39
+  bullets: 36
+  rockets: 1
+  kills: 6
+  truck: 0

@@ -9,16 +9,17 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
     [SerializeField] private GameSetupSo gameSetupSo;
+    [SerializeField] private PlayerSO playerSO;
 
     [Header("UI Panels")]
     [SerializeField] private GameObject SettingPanel;
     [SerializeField] private GameObject StartPanel;
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private GameObject InGamePanel;
+    [SerializeField] private GameObject LvlUpPanel;
+    [SerializeField] private Slider ExpBar;
 
     [Header("Texts")]
-    [SerializeField] private TMP_Text bulletsQuantityText;
-    [SerializeField] private TMP_Text rocketsQuantityText;
     [SerializeField] private TMP_Text killsText;
     [SerializeField] private TMP_Text healthText;
 
@@ -28,23 +29,16 @@ public class UiManager : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private Sprite soundOff;
     [SerializeField] private Sprite soundOn;
-    [SerializeField] private Sprite spriteWeaponSelect;
-    [SerializeField] private Sprite spriteWeaponUnSelect;
 
     [Header("Sounds Buttons")]
     [SerializeField] private Button SoundSwitcherStart;
     [SerializeField] private Button SoundSwitcherSetting;
     [SerializeField] private Button SoundSwitcherGameOver;
 
-    [SerializeField] private Button btnIsRifle;
-    [SerializeField] private Button btnIsRocket;
-
     private void Start()
     {
-        StartBtn.transform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo);
+        //StartBtn.transform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo);
         ChangeSoundsBtnImgs(gameSetupSo.IsSound);
-
-
     }
 
     private void updateIsPlay(bool isPlay)
@@ -61,23 +55,16 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    private void UpdateKills(int timeLeft)
+    private void UpdateKills(int kills)
     {
-        killsText.text = "Kills: " + gameSetupSo.Kills;
+        killsText.text = "Kills: " + kills;
+        ExpBar.maxValue = playerSO.xpForNextLvl;
+        ExpBar.value = playerSO.XP;
     }
 
-    private void UpdateBullets(int bullets)
+    private void UpdateHealth(int hp)
     {
-        bulletsQuantityText.text = "Bullets: " + bullets;
-    }
-    private void UpdateRockets(int rockets)
-    {
-        rocketsQuantityText.text = "Rockets: " + rockets;
-    }
-
-    private void UpdateHealth(int obj)
-    {
-        if (obj > 20)
+        if (hp > 20)
         {
             healthText.color = Color.white;
         }
@@ -85,7 +72,12 @@ public class UiManager : MonoBehaviour
         {
             healthText.color = Color.red;
         }
-        healthText.text = "Hp: " + obj;
+        healthText.text = "Hp: " + hp;
+    }
+
+    private void LvlUp(int Lvl)
+    {
+        //LvlUpPanel.SetActive(true);
     }
 
     public void OpenSettingPanel(bool isOpen)
@@ -107,44 +99,25 @@ public class UiManager : MonoBehaviour
             SoundSwitcherSetting.image.sprite = soundOff;
             SoundSwitcherGameOver.image.sprite = soundOff;
         }
-
-    }
-
-    private void ChangeWeapon(bool isRocketLauncher)
-    {
-        if (isRocketLauncher)
-        {
-            btnIsRifle.image.sprite = spriteWeaponUnSelect;
-            btnIsRocket.image.sprite = spriteWeaponSelect;
-        }
-        else
-        {
-            btnIsRifle.image.sprite = spriteWeaponSelect;
-            btnIsRocket.image.sprite = spriteWeaponUnSelect;
-        }
     }
 
     private void OnEnable()
     {
-        bulletsQuantityText.text = "Bullets: " + gameSetupSo.Bullets;
-        gameSetupSo.OnIsRocketLauncherChange += ChangeWeapon;
+
         gameSetupSo.OnIsPlayChange += updateIsPlay;
         gameSetupSo.OnIsSoundChange += ChangeSoundsBtnImgs;
-        gameSetupSo.OnKillsChange += UpdateKills;
-        gameSetupSo.OnBulletsChange += UpdateBullets;
-        gameSetupSo.OnRocketsChange += UpdateRockets;
-        gameSetupSo.OnHealthChange += UpdateHealth;
+        playerSO.OnKillsChange += UpdateKills;
+        playerSO.OnLevelChange += LvlUp;
+        playerSO.OnHealthChange += UpdateHealth;
     }
 
     private void OnDisable()
     {
-        gameSetupSo.OnIsRocketLauncherChange -= ChangeWeapon;
         gameSetupSo.OnIsPlayChange -= updateIsPlay;
         gameSetupSo.OnIsSoundChange -= ChangeSoundsBtnImgs;
-        gameSetupSo.OnKillsChange -= UpdateKills;
-        gameSetupSo.OnBulletsChange -= UpdateBullets;
-        gameSetupSo.OnRocketsChange -= UpdateRockets;
-        gameSetupSo.OnHealthChange -= UpdateHealth;
+        playerSO.OnKillsChange -= UpdateKills;
+        playerSO.OnLevelChange -= LvlUp;
+        playerSO.OnHealthChange -= UpdateHealth;
     }
 
 

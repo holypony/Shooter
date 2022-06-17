@@ -6,22 +6,14 @@ public class DebugManager : MonoBehaviour
 {
 
     [SerializeField] private TMP_Text fpsText;
-    [SerializeField] private bool DebugMode = false;
-    [SerializeField] private GameObject btnVeh;
-    [SerializeField] private GameObject btnRocket;
 
-    [SerializeField] private GameSetupSo gameSetupSo;
-    // Start is called before the first frame update
+
     private float _timer;
     [SerializeField] private float _hudRefreshRate = 1f;
 
     void Awake()
     {
-
-        btnVeh.SetActive(DebugMode);
-        btnRocket.SetActive(DebugMode);
         fpsText.text = "";
-
     }
     void Update()
     {
@@ -32,14 +24,5 @@ public class DebugManager : MonoBehaviour
             fpsText.text = "FPS: " + fps;
             _timer = Time.unscaledTime + _hudRefreshRate;
         }
-    }
-
-    public void AddVehicle()
-    {
-        gameSetupSo.Truck++;
-    }
-    public void AddRocket()
-    {
-        gameSetupSo.Rockets += 1;
     }
 }

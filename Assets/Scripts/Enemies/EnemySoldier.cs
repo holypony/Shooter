@@ -9,13 +9,12 @@ public class EnemySoldier : Bot
     private Animator _animator;
     private Rigidbody[] _rigidbodies;
     private Collider[] _colliders;
-
     [Header("Shooting Setup")]
-    [SerializeField] private GameObject[] trophies;
     [SerializeField] private ParticleSystem PsBlood;
     private Vector3 BulletPos;
     [SerializeField] private Vactor3ListSO listPos;
     [SerializeField] private GameSetupSo gameSetupSo;
+    [SerializeField] private PlayerSO playerSO;
     private NavMeshAgent _agent;
     [SerializeField] private bool test = false;
     private void Awake()
@@ -27,35 +26,12 @@ public class EnemySoldier : Bot
     }
 
     private float _dist;
-
     private float cooldown = 1f;
-    private float lastHit = 0.9f;
-
 
     private void FixedUpdate()
     {
-        _dist = Vector3.Distance(transform.position, PlayerTarget.transform.position);
-        if (_dist < 1f && IsAlive)
-        {
-            if (lastHit > cooldown)
-            {
-                lastHit = 0;
-
-                gameSetupSo.Health -= 20;
-                if (gameSetupSo.Health < 1)
-                {
-                    gameSetupSo.IsPlay = false;
-                }
-            }
-            else
-            {
-                lastHit += Time.deltaTime;
-            }
-        }
-
         if (test)
         {
-
             Death(1300f, Vector3.forward);
             test = false;
         }
@@ -86,8 +62,6 @@ public class EnemySoldier : Bot
     {
         IsAlive = true;
 
-        trophies[Random.Range(0, 2)].SetActive(true);
-
         ColliderControl(true);
         RigidBodyControl(true, Vector3.zero);
 
@@ -97,9 +71,30 @@ public class EnemySoldier : Bot
         StartCoroutine(UpdateTarget());
         IEnumerator UpdateTarget()
         {
+            _agent.SetDestination(PlayerTarget.transform.position);
             while (IsAlive)
             {
-                _agent.SetDestination(PlayerTarget.transform.position);
+                while (gameSetupSo.IsPause)
+                {
+                    _agent.isStopped = true;
+                    yield return new WaitForSeconds(1f);
+                    if (!gameSetupSo.IsPause) _agent.isStopped = false;
+                }
+                _dist = Vector3.Distance(transform.position, PlayerTarget.transform.position);
+                if (_dist > 0.75f)
+                {
+                    _agent.SetDestination(PlayerTarget.transform.position);
+                    if (_dist > 17f) gameObject.SetActive(false);
+                }
+                else
+                {
+                    playerSO.Health -= 20;
+                    if (playerSO.Health < 1)
+                    {
+                        gameSetupSo.IsPlay = false;
+                    }
+                    yield return new WaitForSeconds(1f);
+                }
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -113,11 +108,6 @@ public class EnemySoldier : Bot
         float rndSnd = Random.Range(0f, 1f);
         if (rndSnd > 0.6f) SoundManager.instance.OrkDeath();
 
-        foreach (var trophy in trophies)
-        {
-            trophy.SetActive(false);
-        }
-
         IsAlive = false;
 
         _agent.isStopped = true;
@@ -126,14 +116,14 @@ public class EnemySoldier : Bot
 
         PsBlood.Play(true);
 
-
-
         StartCoroutine(BackToPool());
         IEnumerator BackToPool()
         {
+            playerSO.XP++;
+            playerSO.Kills++;
             yield return new WaitForSeconds(1f);
-            gameSetupSo.Kills++;
-            SpawnBox();
+
+            //SpawnBox();
             gameObject.SetActive(false);
         }
     }
