@@ -65,8 +65,8 @@ public class SoliderPool : PoolBase<Bot>
     {
         var pos = RandomPointInAnnulus(spawnRadius.x, spawnRadius.y);
         var randomSpawnPos = new Vector3(pos.x, 0f, pos.y);
-        if (pos.x > 70 || pos.x < -70) randomSpawnPos = GetRandomPos();
-        if (pos.y > 70 || pos.y < -70) randomSpawnPos = GetRandomPos();
+        //if (pos.x > 70 || pos.x < -70) randomSpawnPos = GetRandomPos();
+        //if (pos.y > 70 || pos.y < -70) randomSpawnPos = GetRandomPos();
 
         return randomSpawnPos;
     }
@@ -95,13 +95,9 @@ public class SoliderPool : PoolBase<Bot>
 
         var position = target.transform.position;
         var origin = new Vector2(position.x + 0.1f, position.z - 0.1f);
-
         var randomDirection = (Random.insideUnitCircle * origin).normalized;
-
         var randomDistance = Random.Range(minRadius, maxRadius);
-
         var point = origin + randomDirection * randomDistance;
-
         return point;
     }
 }

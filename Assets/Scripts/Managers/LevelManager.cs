@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.AI;
+using NavMeshBuilder = UnityEngine.AI.NavMeshBuilder;
 public struct groundPanel
 {
     public GameObject prefab;
@@ -11,6 +11,19 @@ public struct groundPanel
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField]
+    private NavMeshSurface Surface;
+    [SerializeField]
+    private float UpdateRate = 0.1f;
+    [SerializeField]
+    private float MovementThreshold = 3f;
+    [SerializeField]
+    private Vector3 NavMeshSize = new Vector3(20, 20, 20);
+
+    private Vector3 WorldAnchor;
+    private NavMeshData NavMeshData;
+    private List<NavMeshBuildSource> Sources = new List<NavMeshBuildSource>();
+
 
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject planePref;
@@ -23,19 +36,30 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        InitPlanes();
+        InitPlaneManager();
+
+
+        NavMeshData = new NavMeshData();
+        NavMesh.AddNavMeshData(NavMeshData);
+        BuildNavMesh(false);
+        StartCoroutine(CheckPlayerMovement());
+
     }
 
-    private void InitPlanes()
+
+    private void InitPlaneManager()
     {
         groundPanelsArr = new groundPanel[6];
+
         halfPlaneSide = planePref.transform.localScale.x * 5f;
 
         for (int i = 0; i < groundPanelsArr.Length; i++)
         {
             planePref.SetActive(false);
-            groundPanelsArr[i].prefab = Instantiate(planePref);
+            groundPanelsArr[i].prefab = Instantiate(planePref, transform.position, Quaternion.identity, gameObject.transform);
+
             groundPanelsArr[i].coors = new Vector4();
+
         }
         groundPanelsArr[0].prefab.transform.position = Vector3.zero;
         groundPanelsArr[0].prefab.SetActive(true);
@@ -51,7 +75,7 @@ public class LevelManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            CheckOffset(ActivePlaneIndex, 25f);
+            CheckOffset(ActivePlaneIndex, 30f);
         }
     }
 
@@ -161,17 +185,60 @@ public class LevelManager : MonoBehaviour
     private void SpawnNewPlane(Vector3 PlanePos)
     {
         if (CheckActivePlane(PlanePos, false)) return;
-        Debug.Log(x1);
+
         for (int i = 0; i < groundPanelsArr.Length; i++)
         {
             if (!groundPanelsArr[i].prefab.activeSelf)
             {
                 groundPanelsArr[i].prefab.transform.position = PlanePos;
+
                 groundPanelsArr[i].prefab.SetActive(true);
                 AddPanelSquareCor(i);
 
                 return;
             }
+        }
+    }
+
+    private IEnumerator CheckPlayerMovement()
+    {
+        WaitForSeconds Wait = new WaitForSeconds(UpdateRate);
+
+        while (true)
+        {
+            if (Vector3.Distance(WorldAnchor, Player.transform.position) > MovementThreshold)
+            {
+                BuildNavMesh(true);
+                WorldAnchor = Player.transform.position;
+            }
+
+            yield return Wait;
+        }
+    }
+
+    private void BuildNavMesh(bool Async)
+    {
+        Bounds navMeshBounds = new Bounds(Player.transform.position, NavMeshSize);
+        List<NavMeshBuildMarkup> markups = new List<NavMeshBuildMarkup>();
+
+        if (Surface.collectObjects == CollectObjects.Children)
+        {
+            NavMeshBuilder.CollectSources(transform, Surface.layerMask, Surface.useGeometry, Surface.defaultArea, markups, Sources);
+        }
+        else
+        {
+            NavMeshBuilder.CollectSources(navMeshBounds, Surface.layerMask, Surface.useGeometry, Surface.defaultArea, markups, Sources);
+        }
+
+        Sources.RemoveAll(source => source.component != null && source.component.gameObject.GetComponent<NavMeshAgent>() != null);
+
+        if (Async)
+        {
+            NavMeshBuilder.UpdateNavMeshDataAsync(NavMeshData, Surface.GetBuildSettings(), Sources, new Bounds(Player.transform.position, NavMeshSize));
+        }
+        else
+        {
+            NavMeshBuilder.UpdateNavMeshData(NavMeshData, Surface.GetBuildSettings(), Sources, new Bounds(Player.transform.position, NavMeshSize));
         }
     }
 }

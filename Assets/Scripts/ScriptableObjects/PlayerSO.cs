@@ -121,4 +121,22 @@ public class PlayerSO : ScriptableObject
             OnTruckChange?.Invoke(truck);
         }
     }
+
+    //auto aim Delay
+    //Headshot - x2 dmg
+    //Homing missiles 
+    //Mine drops from corpse 
+
+
+    //Rifle upgrades
+
+    //Rocket Upgrades
+        //Direct rockets
+        //Homing missiles
+        //Tactical nuclear rockets
+
+    //Laser upgrades
+
+    //Bots upgrade
+
 }

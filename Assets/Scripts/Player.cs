@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float turnSpeed = 0.1f;
     private float _turnSmoothVelocity;
+    private Vector3 direction;
 
     [Header("Shooting Setup")]
     [SerializeField] private ParticleSystem PsShooting;
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
     [Header("Rocket launcher")]
     [SerializeField] private GameObject rocketPrefab;
     [SerializeField] private GameObject firePoint;
+    [SerializeField] private float aimTime = 0.25f;
     private bool isShooting = false;
     private bool isTarget = false;
 
@@ -39,7 +41,7 @@ public class Player : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
-        InvokeRepeating("SelectTarget", 0f, 0.1f);
+        InvokeRepeating("SelectTarget", 0f, aimTime);
         AutoAim();
     }
 
@@ -47,6 +49,7 @@ public class Player : MonoBehaviour
     {
         Move();
     }
+
     private void Move()
     {
         if (!_characterController.isGrounded)
@@ -55,7 +58,7 @@ public class Player : MonoBehaviour
             if (transform.position.y < -3f) gameSetupSo.IsPlay = false;
         }
 
-        var direction = new Vector3(actionController.Move.x, 0, actionController.Move.y);
+        direction = new Vector3(actionController.Move.x, 0, actionController.Move.y);
 
         _animator.SetFloat("Move", direction.magnitude);
 
@@ -73,7 +76,12 @@ public class Player : MonoBehaviour
         {
             while (true)
             {
-                while (gameSetupSo.IsPause) yield return new WaitForSeconds(1f);
+                while (!gameSetupSo.IsPlay)
+                {
+                    isShooting = false;
+                    PsShooting.Stop(true);
+                    yield return new WaitForSeconds(1f);
+                }
                 if (isTarget)
                 {
                     transform.LookAt(target.transform);
@@ -176,5 +184,3 @@ public class Player : MonoBehaviour
         }
     }
 }
-
-

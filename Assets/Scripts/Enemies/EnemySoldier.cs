@@ -9,36 +9,27 @@ public class EnemySoldier : Bot
     private Animator _animator;
     private Rigidbody[] _rigidbodies;
     private Collider[] _colliders;
+
     [Header("Shooting Setup")]
     [SerializeField] private ParticleSystem PsBlood;
-    private Vector3 BulletPos;
+    [SerializeField] private ParticleSystem PsSlash;
     [SerializeField] private Vactor3ListSO listPos;
     [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private PlayerSO playerSO;
     private NavMeshAgent _agent;
-    [SerializeField] private bool test = false;
+
+    private float _dist;
+    public List<Vector3> pos;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _rigidbodies = GetComponentsInChildren<Rigidbody>();
         _colliders = GetComponentsInChildren<Collider>();
         _agent = GetComponent<NavMeshAgent>();
+        //SaveLocalPos();
     }
 
-    private float _dist;
-    private float cooldown = 1f;
-
-    private void FixedUpdate()
-    {
-        if (test)
-        {
-            Death(1300f, Vector3.forward);
-            test = false;
-        }
-    }
-
-
-    public List<Vector3> pos;
     public void SaveLocalPos()
     {
         _rigidbodies = GetComponentsInChildren<Rigidbody>();
@@ -62,13 +53,18 @@ public class EnemySoldier : Bot
     {
         IsAlive = true;
 
+        _agent.speed = 5f + gameSetupSo.DifficultyLvl;
+        _agent.acceleration = 5f * (gameSetupSo.DifficultyLvl * 5f);
+        _agent.angularSpeed = 12f * (gameSetupSo.DifficultyLvl * 5f);
+
         ColliderControl(true);
         RigidBodyControl(true, Vector3.zero);
 
         _animator.enabled = true;
-        _animator.SetFloat("Move", 1f);
+        _animator.SetFloat("RUN", 1f);
 
         StartCoroutine(UpdateTarget());
+
         IEnumerator UpdateTarget()
         {
             _agent.SetDestination(PlayerTarget.transform.position);
@@ -80,22 +76,26 @@ public class EnemySoldier : Bot
                     yield return new WaitForSeconds(1f);
                     if (!gameSetupSo.IsPause) _agent.isStopped = false;
                 }
+
                 _dist = Vector3.Distance(transform.position, PlayerTarget.transform.position);
-                if (_dist > 0.75f)
+                if (_dist > 1.5f)
                 {
                     _agent.SetDestination(PlayerTarget.transform.position);
                     if (_dist > 17f) gameObject.SetActive(false);
                 }
                 else
                 {
+                    PsSlash.Play();
+                    _animator.SetTrigger("ATTACK");
+                    _agent.SetDestination(PlayerTarget.transform.position);
                     playerSO.Health -= 20;
                     if (playerSO.Health < 1)
                     {
                         gameSetupSo.IsPlay = false;
                     }
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(0.5f);
                 }
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }

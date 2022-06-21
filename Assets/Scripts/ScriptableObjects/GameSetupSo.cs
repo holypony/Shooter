@@ -8,6 +8,7 @@ public class GameSetupSo : ScriptableObject
     [SerializeField] private bool isPlay;
     [SerializeField] private bool isSound;
     [SerializeField] private bool isPause;
+    [SerializeField] private int difficultyLvl;
 
 
 
@@ -37,6 +38,15 @@ public class GameSetupSo : ScriptableObject
         {
             isPause = value;
             OnIsPause?.Invoke(isPause);
+        }
+    }
+
+    public int DifficultyLvl
+    {
+        get => difficultyLvl;
+        set
+        {
+            difficultyLvl = value;
         }
     }
 
