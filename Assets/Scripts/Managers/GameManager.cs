@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerSO playerSO;
     [SerializeField] private SoliderPool soliderPool;
     [SerializeField] private UiManager uiManager;
-
+    [SerializeField] private GameObject player;
     [Header("Game settings")]
     [SerializeField] private int matchTime = 0;
 
@@ -23,10 +23,12 @@ public class GameManager : MonoBehaviour
     {
         if (isPlay)
         {
+
             gameSetupSo.DifficultyLvl = 1;
             playerSO.InitPlayer();
             StartCoroutine(MatchTimer());
         }
+        player.transform.position = Vector3.zero;
     }
 
     private IEnumerator MatchTimer()

@@ -5,10 +5,11 @@ using UnityEngine;
 public class CollisionHandler : MonoBehaviour
 {
     private Vector3 BulletPos;
-    [SerializeField] private EnemySoldier enemySoldier;
+    [SerializeField] public EnemySoldier enemySoldier;
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Debug.Log(collision.gameObject.name);
         if (collision.transform.CompareTag("Mine"))
         {
             BulletPos = collision.transform.position.normalized;
@@ -20,18 +21,27 @@ public class CollisionHandler : MonoBehaviour
             BulletPos = collision.transform.position.normalized;
             enemySoldier.Death(1200f, BulletPos);
         }
+
+        if (collision.transform.CompareTag("Hole"))
+        {
+            BulletPos = new Vector3(transform.position.x, transform.position.y + 10f, transform.position.z);
+            enemySoldier.Death(200f, BulletPos);
+        }
     }
+
 
     private void OnParticleCollision(GameObject other)
     {
+
         if (other.CompareTag("Bullet"))
         {
             BulletPos = other.transform.position;
-            enemySoldier.Death(250f, BulletPos);
+            enemySoldier.Death(555f, BulletPos);
         }
 
         if (other.CompareTag("Mine"))
         {
+
             BulletPos = other.transform.position;
             enemySoldier.Death(600f, BulletPos);
         }

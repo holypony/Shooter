@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1ce5e30a0db406188f5ea1de6451f7, type: 3}
   m_Name: PlayerSO
   m_EditorClassIdentifier: 
-  health: 100
-  kills: 1078
-  lvl: 16
-  xp: 118
+  health: 0
+  kills: 86
+  lvl: 4
+  xp: 16
   bullets: 50
-  rockets: 8
+  rockets: 0
   truck: 0

@@ -80,8 +80,6 @@ public class PlayerSO : ScriptableObject
     }
     public float xpForNextLvl { get; set; }
 
-
-
     public int Rockets
     {
         get => rockets;

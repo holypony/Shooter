@@ -62,12 +62,17 @@ public abstract class PoolBase<T> : MonoBehaviour where T : MonoBehaviour
         return item;
     }
 
-    protected void offAllObjects(List<T> pool)
+    protected void OffAllObjects(List<T> pool)
     {
         foreach (var obj in pool)
         {
             obj.gameObject.SetActive(false);
         }
 
+    }
+
+    protected void SetOffObj(int index)
+    {
+        Pool[index].gameObject.SetActive(false);
     }
 }

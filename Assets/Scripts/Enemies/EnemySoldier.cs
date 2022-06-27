@@ -100,7 +100,7 @@ public class EnemySoldier : Bot
         }
     }
 
-    public void Death(float force, Vector3 bulletPos)
+    public void Death(float force, Vector3 bulletPos, bool isBlood = true)
     {
         RigidBodyControl(false, bulletPos, force);
         ColliderControl(false);
@@ -114,14 +114,14 @@ public class EnemySoldier : Bot
 
         _animator.enabled = false;
 
-        PsBlood.Play(true);
+        if (isBlood) PsBlood.Play(true);
 
         StartCoroutine(BackToPool());
         IEnumerator BackToPool()
         {
             playerSO.XP++;
             playerSO.Kills++;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2.5f);
 
             //SpawnBox();
             gameObject.SetActive(false);

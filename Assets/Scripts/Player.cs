@@ -54,8 +54,8 @@ public class Player : MonoBehaviour
     {
         if (!_characterController.isGrounded)
         {
-            _characterController.Move(Vector3.down);
-            if (transform.position.y < -3f) gameSetupSo.IsPlay = false;
+            _characterController.Move(Vector3.down * 0.15f);
+            if (transform.position.y < -10f) gameSetupSo.IsPlay = false;
         }
 
         direction = new Vector3(actionController.Move.x, 0, actionController.Move.y);

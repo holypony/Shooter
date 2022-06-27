@@ -9,6 +9,8 @@ TagManager:
   - Mine
   - Vehicle
   - Rocket
+  - Floor
+  - Hole
   layers:
   - Default
   - TransparentFX
@@ -22,8 +24,8 @@ TagManager:
   - Bonus
   - Mine
   - Vehicle
-  - 
-  - 
+  - ShaderHole
+  - HoleShaderMask
   - 
   - 
   - 

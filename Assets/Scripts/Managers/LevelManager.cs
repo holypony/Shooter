@@ -27,6 +27,7 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject planePref;
+    [SerializeField] private GameSetupSo gameSetupSo;
 
     public groundPanel[] groundPanelsArr;
 
@@ -38,17 +39,15 @@ public class LevelManager : MonoBehaviour
     {
         InitPlaneManager();
 
-
         NavMeshData = new NavMeshData();
         NavMesh.AddNavMeshData(NavMeshData);
         BuildNavMesh(false);
         StartCoroutine(CheckPlayerMovement());
-
     }
-
 
     private void InitPlaneManager()
     {
+
         groundPanelsArr = new groundPanel[6];
 
         halfPlaneSide = planePref.transform.localScale.x * 5f;
@@ -69,6 +68,8 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(FastCheck());
         StartCoroutine(LongCheck());
     }
+
+
 
     private IEnumerator FastCheck()
     {
@@ -206,6 +207,7 @@ public class LevelManager : MonoBehaviour
 
         while (true)
         {
+
             if (Vector3.Distance(WorldAnchor, Player.transform.position) > MovementThreshold)
             {
                 BuildNavMesh(true);

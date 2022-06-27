@@ -29,7 +29,7 @@ public class SoliderPool : PoolBase<Bot>
     {
         if (!isPlay)
         {
-            offAllObjects(SoldierPool);
+            OffAllObjects(SoldierPool);
         }
         else
         {
@@ -92,7 +92,6 @@ public class SoliderPool : PoolBase<Bot>
 
     private Vector2 RandomPointInAnnulus(float minRadius, float maxRadius)
     {
-
         var position = target.transform.position;
         var origin = new Vector2(position.x + 0.1f, position.z - 0.1f);
         var randomDirection = (Random.insideUnitCircle * origin).normalized;
