@@ -14,9 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlay: 0
   isSound: 1
-  isRocketLauncher: 0
-  health: 100
-  bullets: 36
-  rockets: 1
-  kills: 6
-  truck: 0
+  isPause: 0
+  difficultyLvl: 3

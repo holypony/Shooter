@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9027906131502824082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9027906131502824081}
+  - component: {fileID: 9027906131502824080}
+  - component: {fileID: 9027906131502824094}
+  - component: {fileID: 9027906131502824093}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9027906131502824081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027906131502824082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9027906131502824080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027906131502824082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51235a55c57724492a137b7a0da3d4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoldierPool: []
+  EnemySoldierPref: {fileID: 8252319754403130017, guid: 41820e1f19f7d4a3a98b22931c77518f,
+    type: 3}
+  _soldiersPoolCapacity: 45
+  _soldiersToSpawn: 44
+  timeBetweenSpawn: 0.15
+  spawnRadius: {x: 12, y: 14}
+  target: {fileID: 0}
+  gameSetupSo: {fileID: 11400000, guid: a323d7ccae41841a2a7e6216e79416be, type: 2}
+  playerSO: {fileID: 11400000, guid: b266dbd8429a2445f840c23796c511cb, type: 2}
+  _bonusManager: {fileID: 0}
+  soldierAlive: 0
+  soldierSpawned: 0
+--- !u!114 &9027906131502824094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027906131502824082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5338bdd8130344f99a0563a1cf728645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketPref: {fileID: 738560352419283490, guid: 088e2874e55b844539d4f73188a7b851,
+    type: 3}
+  _boxesPoolCapacity: 5
+--- !u!114 &9027906131502824093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027906131502824082}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a6c87db67ad4ded85035d8db92ad51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlackHolePref: {fileID: 5480494478314962902, guid: e6e9b1158cc724403a942f766ef49b84,
+    type: 3}
+  hole2dPref: {fileID: 6970539530368026553, guid: 11bb64acf2c834260b1ae5712c96ceab,
+    type: 3}
+  _blackHoleCapacity: 5
+  spawnRadius: {x: 4, y: 14}
+  timeBetweenSpawn: 0.01
+  gameSetupSo: {fileID: 11400000, guid: a323d7ccae41841a2a7e6216e79416be, type: 2}
+  levelManager: {fileID: 0}
+  player: {fileID: 0}
+  hole2dColliders: []
+  ground2dColliders: {fileID: 0}
+  GeneratedMeshColliders: {fileID: 0}
+  activeHolesQuantity: 0

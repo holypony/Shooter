@@ -25,40 +25,37 @@ public class SoliderPool : PoolBase<Bot>
         SoldierPool = InitPool(EnemySoldierPref, _soldiersPoolCapacity);
     }
 
-    private void StartGame(bool isPlay)
+
+    public void StartSpawn()
     {
-        if (!isPlay)
-        {
-            OffAllObjects(SoldierPool);
-        }
-        else
-        {
-            soldierSpawned = 0;
-            Spawn();
-        }
+        soldierSpawned = 0;
+        StartCoroutine(Spawn());
     }
+
+    public void KillAll()
+    {
+        OffAllObjects(SoldierPool);
+    }
+
+
 
     [SerializeField] private int soldierAlive = 0;
     [SerializeField] private int soldierSpawned = 0;
-    private void Spawn()
+    private IEnumerator Spawn()
     {
-        StartCoroutine(Spawner());
-
-        IEnumerator Spawner()
+        while (gameSetupSo.IsPlay)
         {
-            while (gameSetupSo.IsPlay)
+            while (gameSetupSo.IsPause) yield return new WaitForSeconds(1f);
+            soldierAlive = soldierSpawned - playerSO.Kills;
+            Debug.Log("Spawning");
+            if (soldierAlive < _soldiersToSpawn)
             {
-                while (gameSetupSo.IsPause) yield return new WaitForSeconds(1f);
-                soldierAlive = soldierSpawned - playerSO.Kills;
-
-                if (soldierAlive < _soldiersToSpawn)
-                {
-                    soldierSpawned++;
-                    SpawnSoldier(GetRandomPos());
-                }
-                yield return new WaitForSeconds(timeBetweenSpawn);
+                soldierSpawned++;
+                SpawnSoldier(GetRandomPos());
             }
+            yield return new WaitForSeconds(timeBetweenSpawn);
         }
+
     }
 
     private Vector3 GetRandomPos()
@@ -81,12 +78,12 @@ public class SoliderPool : PoolBase<Bot>
 
     private void OnEnable()
     {
-        gameSetupSo.OnIsPlayChange += StartGame;
+        //gameSetupSo.OnIsPlayChange += StartGame;
     }
 
     private void OnDisable()
     {
-        gameSetupSo.OnIsPlayChange -= StartGame;
+        //gameSetupSo.OnIsPlayChange -= StartGame;
     }
 
 

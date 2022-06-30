@@ -52,11 +52,11 @@ public abstract class PoolBase<T> : MonoBehaviour where T : MonoBehaviour
 
     private T CreateNew(ICollection<T> pool, bool isActive = false, float x = 0, float y = 1, float z = 0)
     {
-        var item = Instantiate(_prefab);
-
+        Vector3 spawnPos = new Vector3(x, y, z);
+        var item = Instantiate(_prefab, spawnPos, Quaternion.identity, gameObject.transform);
         GameObject o;
         (o = item.gameObject).SetActive(isActive);
-        o.transform.position = new Vector3(x, y, z);
+        //o.transform.position = new Vector3(x, y, z);
 
         pool.Add(item);
         return item;

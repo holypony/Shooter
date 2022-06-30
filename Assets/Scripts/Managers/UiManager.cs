@@ -45,8 +45,14 @@ public class UiManager : MonoBehaviour
     {
         if (!isPlay)
         {
-            StartPanel.SetActive(false);
-            GameOverPanel.SetActive(true);
+            StartCoroutine(OneSecWait());
+            IEnumerator OneSecWait()
+            {
+                yield return new WaitForSeconds(1f);
+                StartPanel.SetActive(false);
+                GameOverPanel.SetActive(true);
+            }
+
         }
         else
         {

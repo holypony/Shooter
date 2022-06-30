@@ -93,7 +93,7 @@ public class BlackHolesSpawner : PoolBase<BlackHole>
             yield return new WaitForSeconds(timeBetweenSpawn);
             MakeHole();
         }
-        CloseHole();
+
     }
 
     public void SpawnBh(Vector3 spawnPos)

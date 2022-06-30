@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private CharacterController _characterController;
     [SerializeField] private SoliderPool soldierPool;
     private float distToTarget;
-    private Bot target;
+    [SerializeField] private Bot target;
     private float distToEnemy;
 
     [Header("Move Setup")]
@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float aimTime = 0.25f;
     private bool isShooting = false;
     private bool isTarget = false;
+    public bool isGrounded;
 
     private void Awake()
     {
@@ -45,23 +46,24 @@ public class Player : MonoBehaviour
         AutoAim();
     }
 
+
     private void FixedUpdate()
     {
+        isGrounded = !_characterController.isGrounded;
+        if (!gameSetupSo.IsPlay) return;
+
+        if (!_characterController.isGrounded)
+        {
+            _characterController.Move(Vector3.down * 0.15f);
+            if (transform.position.y < -2.5f) gameSetupSo.IsPlay = false;
+        }
         Move();
     }
 
     private void Move()
     {
-        if (!_characterController.isGrounded)
-        {
-            _characterController.Move(Vector3.down * 0.15f);
-            if (transform.position.y < -10f) gameSetupSo.IsPlay = false;
-        }
-
-        direction = new Vector3(actionController.Move.x, 0, actionController.Move.y);
-
+        direction = new Vector3(actionController.Move.x, 0f, actionController.Move.y);
         _animator.SetFloat("Move", direction.magnitude);
-
         if (direction.magnitude >= 0.1f)
         {
             _characterController.Move(direction * moveSpeed);
@@ -110,7 +112,6 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < soldierPool.SoldierPool.Count; i++)
         {
-
             if (soldierPool.SoldierPool[i].IsAlive)
             {
                 distToEnemy = Vector3.Distance(transform.position, soldierPool.SoldierPool[i].transform.position);
@@ -132,7 +133,6 @@ public class Player : MonoBehaviour
 
         IEnumerator Shooting()
         {
-
             while (isShooting)
             {
                 playerSO.Rockets--;
@@ -161,7 +161,6 @@ public class Player : MonoBehaviour
             isShooting = true;
             while (isShooting)
             {
-                //playerSO.Bullets--;
                 SoundManager.instance.PlayRifleShot();
 
                 if (playerSO.Bullets < 1)

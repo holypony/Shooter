@@ -53,8 +53,8 @@ public class EnemySoldier : Bot
     {
         IsAlive = true;
 
-        _agent.speed = 5f + gameSetupSo.DifficultyLvl;
-        _agent.acceleration = 5f * (gameSetupSo.DifficultyLvl * 5f);
+        _agent.speed = 4f + gameSetupSo.DifficultyLvl;
+        _agent.acceleration = 4f * (gameSetupSo.DifficultyLvl * 5f);
         _agent.angularSpeed = 12f * (gameSetupSo.DifficultyLvl * 5f);
 
         ColliderControl(true);
@@ -70,6 +70,7 @@ public class EnemySoldier : Bot
             _agent.SetDestination(PlayerTarget.transform.position);
             while (IsAlive)
             {
+                if (!_agent.isOnNavMesh) Death(100f, Vector3.up);
                 while (gameSetupSo.IsPause)
                 {
                     _agent.isStopped = true;
@@ -80,6 +81,7 @@ public class EnemySoldier : Bot
                 _dist = Vector3.Distance(transform.position, PlayerTarget.transform.position);
                 if (_dist > 1.5f)
                 {
+
                     _agent.SetDestination(PlayerTarget.transform.position);
                     if (_dist > 17f) gameObject.SetActive(false);
                 }
@@ -165,5 +167,10 @@ public class EnemySoldier : Bot
                 body.isKinematic = true;
             }
         }
+    }
+
+    void OnDisable()
+    {
+        IsAlive = false;
     }
 }

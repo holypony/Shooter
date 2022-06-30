@@ -3,32 +3,60 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Other")]
+    [Header("Managers")]
+    [SerializeField] private SoliderPool soliderPool;
+    [SerializeField] private CubeLvlManager cubeLvlManager;
+    [Header("Scriptable objs")]
     [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private PlayerSO playerSO;
-    [SerializeField] private SoliderPool soliderPool;
+    [Header("____")]
     [SerializeField] private UiManager uiManager;
     [SerializeField] private GameObject player;
-    [Header("Game settings")]
-    [SerializeField] private int matchTime = 0;
+
+
+    private int matchTime = 0;
 
     private void Awake()
     {
         gameSetupSo.IsPlay = false;
         gameSetupSo.IsPause = false;
-
+        cubeLvlManager.MakeLvl();
     }
 
     private void MatchManager(bool isPlay)
     {
         if (isPlay)
         {
-
-            gameSetupSo.DifficultyLvl = 1;
-            playerSO.InitPlayer();
-            StartCoroutine(MatchTimer());
+            StartCoroutine(InitLvl());
         }
-        player.transform.position = Vector3.zero;
+        else
+        {
+            StartCoroutine(CleanLvl());
+        }
+    }
+
+    private IEnumerator InitLvl()
+    {
+        gameSetupSo.DifficultyLvl = 1;
+        playerSO.InitPlayer();
+
+        cubeLvlManager.InitNav();
+
+        yield return new WaitForSeconds(1f);
+
+        cubeLvlManager.FallingCubes();
+        StartCoroutine(MatchTimer());
+        soliderPool.StartSpawn();
+    }
+
+    private IEnumerator CleanLvl()
+    {
+        yield return new WaitForSeconds(1f);
+        soliderPool.KillAll();
+        cubeLvlManager.RestartLvl();
+        yield return new WaitForSeconds(1f);
+        player.transform.position = new Vector3(0f, 3f, 0f);
+        player.transform.rotation = Quaternion.identity;
     }
 
     private IEnumerator MatchTimer()

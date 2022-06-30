@@ -35,14 +35,18 @@ public class LevelManager : MonoBehaviour
     public float halfPlaneSide;
     public int ActivePlaneIndex;
 
+    public BlackHolesSpawner blackHolesSpawner;
+
     private void Awake()
     {
-        InitPlaneManager();
+        //InitPlaneManager();
 
         NavMeshData = new NavMeshData();
         NavMesh.AddNavMeshData(NavMeshData);
         BuildNavMesh(false);
         StartCoroutine(CheckPlayerMovement());
+
+        //groundPanelsArr[0].prefab.GetComponent<MeshCollider>().enabled = false;
     }
 
     private void InitPlaneManager()
@@ -121,7 +125,12 @@ public class LevelManager : MonoBehaviour
             {
                 if (TargetPos.z > groundPanelsArr[i].coors.y && TargetPos.z < groundPanelsArr[i].coors.w)
                 {
-                    if (FindActivePanel) ActivePlaneIndex = i;
+                    if (FindActivePanel)
+                    {
+
+                        ActivePlaneIndex = i;
+                    }
+
                     return true;
                 }
             }
@@ -210,8 +219,12 @@ public class LevelManager : MonoBehaviour
 
             if (Vector3.Distance(WorldAnchor, Player.transform.position) > MovementThreshold)
             {
-                BuildNavMesh(true);
-                WorldAnchor = Player.transform.position;
+                if (Player.transform.position.y < 0.15f && Player.transform.position.y > -0.99f)
+                {
+                    BuildNavMesh(true);
+                    WorldAnchor = Player.transform.position;
+                }
+
             }
 
             yield return Wait;

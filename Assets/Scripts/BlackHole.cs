@@ -21,10 +21,9 @@ public class BlackHole : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("col handler here");
+
         if (other.TryGetComponent<CollisionHandler>(out CollisionHandler zombie))
         {
-            Debug.Log("col handler here");
             Vector3 punch = new Vector3(zombie.transform.position.x, zombie.transform.position.y + 10f, zombie.transform.position.z);
             zombie.enemySoldier.Death(2f, punch, false);
         }
