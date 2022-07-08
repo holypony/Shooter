@@ -5,13 +5,14 @@ public class GameManager : MonoBehaviour
 {
     [Header("Managers")]
     [SerializeField] private SoliderPool soliderPool;
-    [SerializeField] private CubeLvlManager cubeLvlManager;
     [Header("Scriptable objs")]
     [SerializeField] private GameSetupSo gameSetupSo;
     [SerializeField] private PlayerSO playerSO;
     [Header("____")]
     [SerializeField] private UiManager uiManager;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject playerSpawn;
+
 
 
     private int matchTime = 0;
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     {
         gameSetupSo.IsPlay = false;
         gameSetupSo.IsPause = false;
-        cubeLvlManager.MakeLvl();
+        //cubeLvlManager.MakeLvl();
     }
 
     private void MatchManager(bool isPlay)
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(CleanLvl());
+            //StartCoroutine(CleanLvl());
         }
     }
 
@@ -39,22 +40,16 @@ public class GameManager : MonoBehaviour
     {
         gameSetupSo.DifficultyLvl = 1;
         playerSO.InitPlayer();
-
-        cubeLvlManager.InitNav();
-
-        yield return new WaitForSeconds(1f);
-
-        cubeLvlManager.FallingCubes();
+        yield return new WaitForSecondsRealtime(1f);
         StartCoroutine(MatchTimer());
         soliderPool.StartSpawn();
     }
 
     private IEnumerator CleanLvl()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         soliderPool.KillAll();
-        cubeLvlManager.RestartLvl();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(.25f);
         player.transform.position = new Vector3(0f, 3f, 0f);
         player.transform.rotation = Quaternion.identity;
     }
@@ -65,7 +60,7 @@ public class GameManager : MonoBehaviour
         {
             matchTime++;
             if (matchTime % 10 == 0) gameSetupSo.DifficultyLvl++;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSecondsRealtime(1f);
         }
     }
 

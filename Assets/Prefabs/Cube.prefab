@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 1619212686431872540}
   - component: {fileID: 1619212686431872543}
   - component: {fileID: 5153208460500156415}
+  - component: {fileID: 6033151593414164243}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1619212686431872546
 Transform:
@@ -111,4 +112,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMat: {fileID: 2100000, guid: 91d5d714e6c7141e2a48a71157ee7978, type: 2}
-  deadMat: {fileID: 2100000, guid: 3325ffc7dae0a47058ec788ffd8f404c, type: 2}
+  deadMat:
+  - {fileID: 2100000, guid: 13dfb3d5fd90c436ab8a05fb10f75640, type: 2}
+  - {fileID: 2100000, guid: e95a6a965e5ba45d8b174ba09b1e5795, type: 2}
+  - {fileID: 2100000, guid: 3325ffc7dae0a47058ec788ffd8f404c, type: 2}
+  TimeBeforeDrop: 0.5
+--- !u!114 &6033151593414164243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619212686431872542}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

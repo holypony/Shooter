@@ -15,6 +15,8 @@ public class SoliderPool : PoolBase<Bot>
     [SerializeField] private float timeBetweenSpawn = 1f;
     [SerializeField] private Vector2 spawnRadius = new Vector2(15f, 15f);
     [SerializeField] private GameObject target;
+    [SerializeField] private Vector3 SpawnPointStart;
+    [SerializeField] private Vector3 SpawnPointEnd;
 
     [Header("Other")]
     [SerializeField] private GameSetupSo gameSetupSo;
@@ -43,17 +45,19 @@ public class SoliderPool : PoolBase<Bot>
     [SerializeField] private int soldierSpawned = 0;
     private IEnumerator Spawn()
     {
+        WaitForSeconds Wait = new WaitForSeconds(timeBetweenSpawn);
         while (gameSetupSo.IsPlay)
         {
             while (gameSetupSo.IsPause) yield return new WaitForSeconds(1f);
             soldierAlive = soldierSpawned - playerSO.Kills;
-            Debug.Log("Spawning");
             if (soldierAlive < _soldiersToSpawn)
             {
                 soldierSpawned++;
-                SpawnSoldier(GetRandomPos());
+                //SpawnSoldier(GetRandomPos());
+                Vector3 pos = new Vector3(Random.RandomRange(-5f, 5f), 1f, Random.RandomRange(30f, 40f));
+                SpawnSoldier(pos);
             }
-            yield return new WaitForSeconds(timeBetweenSpawn);
+            yield return Wait;
         }
 
     }

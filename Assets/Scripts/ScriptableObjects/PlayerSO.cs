@@ -14,7 +14,7 @@ public class PlayerSO : ScriptableObject
 
     [SerializeField] private int bullets;
     [SerializeField] private int rockets;
-    [SerializeField] private int truck;
+    [SerializeField] private int crystal;
 
     public event Action<int> OnHealthChange;
     public event Action<int> OnLevelChange;
@@ -23,7 +23,7 @@ public class PlayerSO : ScriptableObject
 
     public event Action<int> OnBulletsChange;
     public event Action<int> OnRocketsChange;
-    public event Action<int> OnTruckChange;
+    public event Action<int> OnCrystalValueChange;
 
     public void InitPlayer()
     {
@@ -38,6 +38,8 @@ public class PlayerSO : ScriptableObject
         Kills = 0;
         Bullets = 50;
         Rockets = 1;
+
+        Crystal = 0;
     }
 
     public int Health
@@ -110,13 +112,13 @@ public class PlayerSO : ScriptableObject
         }
     }
 
-    public int Truck
+    public int Crystal
     {
-        get => truck;
+        get => crystal;
         set
         {
-            truck = value;
-            OnTruckChange?.Invoke(truck);
+            crystal = value;
+            OnCrystalValueChange?.Invoke(crystal);
         }
     }
 
@@ -129,9 +131,9 @@ public class PlayerSO : ScriptableObject
     //Rifle upgrades
 
     //Rocket Upgrades
-        //Direct rockets
-        //Homing missiles
-        //Tactical nuclear rockets
+    //Direct rockets
+    //Homing missiles
+    //Tactical nuclear rockets
 
     //Laser upgrades
 

@@ -50,8 +50,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = !_characterController.isGrounded;
-        if (!gameSetupSo.IsPlay) return;
 
+        if (!gameSetupSo.IsPlay) return;
         if (!_characterController.isGrounded)
         {
             _characterController.Move(Vector3.down * 0.15f);
@@ -102,8 +102,7 @@ public class Player : MonoBehaviour
                     isShooting = false;
                     PsShooting.Stop(true);
                 }
-
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSecondsRealtime(0.1f);
             }
         }
     }
@@ -115,7 +114,7 @@ public class Player : MonoBehaviour
             if (soldierPool.SoldierPool[i].IsAlive)
             {
                 distToEnemy = Vector3.Distance(transform.position, soldierPool.SoldierPool[i].transform.position);
-                if (distToEnemy < 6f)
+                if (distToEnemy < 7f)
                 {
                     distToTarget = distToEnemy;
                     target = soldierPool.SoldierPool[i];
@@ -138,7 +137,7 @@ public class Player : MonoBehaviour
                 playerSO.Rockets--;
                 rocketManager.SpawnRocket(firePoint.transform.position, firePoint.transform.rotation);
 
-                yield return new WaitForSeconds(.2f);
+                yield return new WaitForSecondsRealtime(.2f);
 
                 if (playerSO.Rockets < 1)
                 {
@@ -178,7 +177,7 @@ public class Player : MonoBehaviour
                     }
                 }
 
-                yield return new WaitForSeconds(0.09f);
+                yield return new WaitForSecondsRealtime(0.09f);
             }
         }
     }

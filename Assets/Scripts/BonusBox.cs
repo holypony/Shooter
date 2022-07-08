@@ -60,7 +60,7 @@ public class BonusBox : MonoBehaviour
             }
             if (isTruckBox)
             {
-                playerSO.Truck++;
+                //playerSO.Truck++;
             }
 
             if (isRocketBox)

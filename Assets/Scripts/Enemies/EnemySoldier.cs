@@ -70,7 +70,7 @@ public class EnemySoldier : Bot
             _agent.SetDestination(PlayerTarget.transform.position);
             while (IsAlive)
             {
-                if (!_agent.isOnNavMesh) Death(100f, Vector3.up);
+
                 while (gameSetupSo.IsPause)
                 {
                     _agent.isStopped = true;
@@ -83,12 +83,13 @@ public class EnemySoldier : Bot
                 {
 
                     _agent.SetDestination(PlayerTarget.transform.position);
-                    if (_dist > 17f) gameObject.SetActive(false);
+                    if (_dist > 35f) Death(0f, Vector3.zero);
                 }
                 else
                 {
                     PsSlash.Play();
                     _animator.SetTrigger("ATTACK");
+
                     _agent.SetDestination(PlayerTarget.transform.position);
                     playerSO.Health -= 20;
                     if (playerSO.Health < 1)

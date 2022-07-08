@@ -37,7 +37,7 @@ public class UiManager : MonoBehaviour
 
     private void Start()
     {
-        //StartBtn.transform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo);
+        StartBtn.transform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo);
         ChangeSoundsBtnImgs(gameSetupSo.IsSound);
     }
 
@@ -48,7 +48,7 @@ public class UiManager : MonoBehaviour
             StartCoroutine(OneSecWait());
             IEnumerator OneSecWait()
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSecondsRealtime(1f);
                 StartPanel.SetActive(false);
                 GameOverPanel.SetActive(true);
             }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using NavMeshBuilder = UnityEngine.AI.NavMeshBuilder;
@@ -25,7 +26,8 @@ public class CubeLvlManager : PoolBase<Cube>
     private Vector3 cor;
     [SerializeField] private float Side;
 
-    private void Awake()
+
+    private void Awakeе()
     {
         Side = Mathf.Sqrt(PlaneSquare) * transform.localScale.x;
         StartCors = new Vector2(-Side / 4, -Side);
@@ -43,47 +45,40 @@ public class CubeLvlManager : PoolBase<Cube>
         StartCoroutine(CheckPlayerMovement());
     }
 
-    public void MakeLvl()
+    public async Task MakeLvl()
     {
-        StartCoroutine(CubeSpawner());
 
-        IEnumerator CubeSpawner()
+
+        for (int x = 0; x < Side * 2; x += 2)
         {
-            for (int x = 0; x < Side * 2; x += 2)
+            for (int z = 0; z < Side * 2; z += 2)
             {
-                for (int z = 0; z < Side * 2; z += 2)
-                {
-                    cor = new Vector3(StartCors.x + x, -0.5f, StartCors.y + z);
-                    Get(Cubes, cor, Quaternion.identity);
-                }
-                yield return null;
+                cor = new Vector3(StartCors.x + x, -0.5f, StartCors.y + z);
+                Get(Cubes, cor, Quaternion.identity);
             }
+            await Task.Yield();
+
         }
+
     }
 
     public void RestartLvl()
     {
         StopAllCoroutines();
-        IsFalling = false;
-
         OffAllObjects(Cubes);
         MakeLvl();
     }
 
-    private bool IsFalling = false;
-    public void FallingCubes()
-    {
-        StartCoroutine(CubeKiller());
 
-        IEnumerator CubeKiller()
+    public async Task FallingCubes()
+    {
+        for (int i = 0; i < Cubes.Count; i++)
         {
-            IsFalling = true;
-            for (int i = 0; i < Cubes.Count; i++)
+            if (Cubes[i].gameObject.activeInHierarchy)
             {
-                if (Cubes[i].gameObject.activeInHierarchy && RandomInt(33)) Cubes[i].TurnOff();
-                yield return null;
+                if (RandomInt(33)) Cubes[i].TurnOff();
             }
-            IsFalling = false;
+            await Task.Yield();
         }
     }
 
@@ -96,17 +91,17 @@ public class CubeLvlManager : PoolBase<Cube>
 
     private IEnumerator CheckPlayerMovement()
     {
-        WaitForSeconds Wait = new WaitForSeconds(UpdateRate);
+        WaitForSecondsRealtime Wait = new WaitForSecondsRealtime(UpdateRate);
 
         while (true)
         {
-            if (Vector3.Distance(WorldAnchor, Player.transform.position) > MovementThreshold || IsFalling)
+            if (Vector3.Distance(WorldAnchor, Player.transform.position) > MovementThreshold)
             {
-                if (Player.transform.position.y < 0.17f && Player.transform.position.y > -0.99f)
-                {
-                    BuildNavMesh(true);
-                    WorldAnchor = Player.transform.position;
-                }
+
+
+                BuildNavMesh(true);
+                WorldAnchor = Player.transform.position;
+
             }
             yield return Wait;
         }
